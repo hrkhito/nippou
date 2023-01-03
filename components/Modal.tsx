@@ -1,0 +1,77 @@
+import React from 'react'
+import { useRouter } from 'next/router';
+
+const Modal = (props:any) => {
+
+  const {modal,closeModal,date,isDone,nippouId}=props;
+
+  const router = useRouter();
+
+  const onClickCreate=()=>{
+    router.push({
+      pathname: `/nippou/form/${date}/`,
+      query: {date:date}
+    })
+  }
+
+  const onClickEdit=()=>{
+    router.push({
+      pathname: `/nippou/edit/${date}/`,
+      query: {date:date,nippouId:nippouId}
+    })
+  }
+
+  const onClickReview=()=>{
+    router.push({
+      pathname: `/nippou/review/${date}/`,
+      query: {date:date}
+    })
+  }
+
+  // スタイル
+  const overlay:any={
+    /* 画面全体を覆う設定 */
+    position:"fixed",
+    top:0,
+    left:0,
+    width:"100%",
+    height:"100%",
+    backgroundColor:"rgba(0,0,0,0.5)",
+    /* 画面の中央に要素を表示させる設定 */
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  }
+
+  const content={
+    zIndex:2 ,
+    width:"50%",
+    padding: "1em",
+    background:"#fff"
+  }
+
+  return (
+    <>
+      {
+        modal ? (
+          <div style={overlay}>
+            <div style={content}>
+              <p>date:{date}</p>
+              {isDone ? (
+                <p><button onClick={()=>{onClickEdit()}}>日報編集へ</button></p>
+              ) : (
+                <p><button onClick={()=>{onClickCreate()}}>日報作成へ</button></p>
+              )}
+              <p><button onClick={()=>{onClickReview()}}>レビューへ</button></p>
+              <p><button onClick={closeModal}>close</button></p>
+            </div>
+          </div>
+        ) : (
+          null
+        )
+      }
+    </>
+  )
+}
+
+export default Modal
