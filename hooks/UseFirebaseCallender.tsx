@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { collection, onSnapshot } from "firebase/firestore"
 import firestore from '../firebase'
 
-export const UseFireBaseNippou = (data:any) => {
+export const UseFireBaseCallender = (data:any) => {
 
-  const [nippou,setNippou] = useState([])
+  const [documents, setDocuments] = useState([])
 
   useEffect(()=>{
     const docRef = collection(firestore, data)
@@ -14,12 +14,12 @@ export const UseFireBaseNippou = (data:any) => {
       snapshot.docs.forEach(doc => {
         results.push({ ...doc.data(), id: doc.id })
       })
-      setNippou(results)
+      setDocuments(results)
     })
   
     return () => unsub()
 
   },[data])
 
-  return {nippou}
+  return {documents}
 }

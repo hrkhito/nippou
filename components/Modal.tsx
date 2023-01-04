@@ -24,7 +24,7 @@ const Modal = (props:any) => {
   const onClickReview=()=>{
     router.push({
       pathname: `/nippou/review/${date}/`,
-      query: {date:date}
+      query: {date:date,nippouId:nippouId}
     })
   }
 

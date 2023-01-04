@@ -1,25 +1,26 @@
 import React, { useEffect, useState } from 'react'
-import { collection, onSnapshot, query, orderBy } from "firebase/firestore"
+import { collection, onSnapshot, orderBy, query, } from "firebase/firestore"
 import firestore from '../firebase'
 
-export const UseFireBase = (data:any) => {
+export const UseFireBaseChat = (data:any) => {
 
-  const [documents, setDocuments] = useState([])
+  const [chat, setChat] = useState([])
 
   useEffect(()=>{
     const docRef = collection(firestore, data)
+    const q = query(docRef,orderBy("timestamp","asc"))
 
-    const unsub = onSnapshot(docRef, snapshot => {
+    const unsub = onSnapshot(q, snapshot => {
       let results:any = []
       snapshot.docs.forEach(doc => {
         results.push({ ...doc.data(), id: doc.id })
       })
-      setDocuments(results)
+      setChat(results)
     })
   
     return () => unsub()
 
   },[data])
 
-  return {documents}
+  return {chat}
 }
