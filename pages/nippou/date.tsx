@@ -3,13 +3,13 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import allLocales from '@fullcalendar/core/locales-all';
 import interactionPlugin from "@fullcalendar/interaction";
-import { UseFireBase } from '../../hooks/UseFirebase';
+import { UseFireBaseCallender } from '../../hooks/UseFirebaseCallender';
 import Modal from '../../components/Modal';
 import { UseFireBaseNippou } from '../../hooks/UseFirebaseNippou';
 
 const Date = (props:any) => {
 
-  const { documents }:any = UseFireBase("callender");
+  const { documents }:any = UseFireBaseCallender("callender");
   const { nippou }:any=UseFireBaseNippou("nippou");
 
   // モーダル関係
