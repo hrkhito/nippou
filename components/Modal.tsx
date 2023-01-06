@@ -3,14 +3,14 @@ import { useRouter } from 'next/router';
 
 const Modal = (props:any) => {
 
-  const {modal,closeModal,date,isDone,nippouId}=props;
-
+  const {modal,closeModal,date,isDone,nippouId,dataId,password}=props;
+  
   const router = useRouter();
 
   const onClickCreate=()=>{
     router.push({
       pathname: `/nippou/form/${date}/`,
-      query: {date:date}
+      query: {date:date,dataId:dataId,password:password}
     })
   }
 

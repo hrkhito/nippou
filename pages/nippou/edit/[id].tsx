@@ -3,6 +3,8 @@ import { useRouter } from "next/router";
 import firestore from '../../../firebase';
 import { doc, getDoc, updateDoc } from "firebase/firestore"
 import Link from 'next/link';
+import { useRecoilState } from "recoil"
+import { groupId } from '../../../states/groupId';
 
 const Edit = () => {
 
@@ -24,11 +26,15 @@ const Edit = () => {
   const date=router.query.date;
   const nippouId:any=router.query.nippouId;
 
+  // recoil関係
+  const [id,setId]:any=useRecoilState(groupId);
+
   // マウント時に編集したい日報をセット
   useEffect(()=>{
+    if(nippouId===undefined) return
     const data=async()=>{
       try {
-        const docRef = doc(firestore, "nippou", nippouId);
+        const docRef = doc(firestore, "certification", id, "nippou", nippouId);
         const docSnap:any = await getDoc(docRef);
         const data=docSnap.data();
         setNippou(data);
@@ -37,11 +43,11 @@ const Edit = () => {
       }
     }
     data();
-  },[nippouId])
+  },[id,nippouId])
 
   // 更新ボタンクリック時
   const onClickUpdate= async ()=>{
-    const docRef = doc(firestore, "nippou", nippouId);
+    const docRef = doc(firestore, "certification", id, "nippou", nippouId);
     updateDoc(docRef,{
       gyomu:nippou.gyomu,
       good:nippou.good,

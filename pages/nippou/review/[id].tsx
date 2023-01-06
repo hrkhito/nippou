@@ -4,10 +4,13 @@ import { addDoc, collection, doc, getDoc, serverTimestamp } from 'firebase/fires
 import firestore from '../../../firebase';
 import { UseFireBaseChat } from '../../../hooks/UseFirebaseChat';
 import Link from 'next/link';
+import { useRecoilState } from "recoil"
+import { groupId } from '../../../states/groupId';
 
 const Review = () => {
 
-  const { chat }=UseFireBaseChat("chats");
+  const { chat }=UseFireBaseChat("certification","chats");
+  const [id,setId]:any=useRecoilState(groupId);
 
   // router
   const router=useRouter();
@@ -23,9 +26,10 @@ const Review = () => {
 
   // マウント時に該当の日報を取得
   useEffect(()=>{
+    if(nippouId===undefined) return
     const data=async()=>{
       try {
-        const docRef = doc(firestore,"nippou",nippouId)
+        const docRef = doc(firestore,"certification",id,"nippou",nippouId)
         const docSnap:any = await getDoc(docRef);
         const data=docSnap.data();
         setNippou(data);
@@ -41,12 +45,12 @@ const Review = () => {
       )
     })
     setTargetChat(target);
-  },[nippouId,chat,date])
+  },[nippouId,chat,date,id])
 
   // チャット送信時
   const onClickChat= async ()=>{
     try {
-      const docRef=collection(firestore,"chats")
+      const docRef=collection(firestore,"certification",id,"chats")
       await addDoc(docRef,{message,date,timestamp:serverTimestamp()})
     } catch (e) {
       console.log(e);

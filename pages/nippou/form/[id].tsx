@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useRouter } from "next/router";
 import Link from 'next/link';
-import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+import { addDoc, collection } from 'firebase/firestore';
 import firestore from '../../../firebase';
+import { useRecoilState } from "recoil";
+import { groupId } from '../../../states/groupId';
 
 const Form = () => {
 
   const router = useRouter();
+
+  const [id,setId]:any=useRecoilState(groupId);
 
   // 業務内容、good news、bad newsの値管理
   const [gyomu,setGyomu]=useState("");
@@ -15,20 +19,22 @@ const Form = () => {
 
   // データ取得
   const date=router.query.date;
+  const dataId=router.query.dataId;
+  const password=router.query.password;
 
   // 提出ボタンを押した時
   const onClickSubmit=async ()=>{
 
     try {
-      const docRef=collection(firestore,"callender")
-      addDoc(docRef,{date:date,title:"日報作成済"})
+      const docRef=collection(firestore,"certification",id,"callender")
+      addDoc(docRef,{date:date,title:"日報作成済",dataId:dataId,password:password})
     } catch (e) {
       console.log(e);
     }
 
     try {
-      const docRef=collection(firestore,"nippou")
-      await addDoc(docRef,{gyomu,good,bad,date:date})
+      const docRef=collection(firestore,"certification",id,"nippou")
+      await addDoc(docRef,{gyomu:gyomu,good:good,bad:bad,date:date,dataId:dataId,password:password})
     } catch (e) {
       console.log(e);
     }
