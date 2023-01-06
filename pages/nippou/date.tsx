@@ -6,17 +6,29 @@ import interactionPlugin from "@fullcalendar/interaction";
 import { UseFireBaseCallender } from '../../hooks/UseFirebaseCallender';
 import Modal from '../../components/Modal';
 import { UseFireBaseNippou } from '../../hooks/UseFirebaseNippou';
+import Link from 'next/link';
+import { useRouter } from "next/router";
+import { UseFireBaseLogin } from '../../hooks/UseFirebaseLogin';
 
 const Date = (props:any) => {
 
-  const { documents }:any = UseFireBaseCallender("callender");
-  const { nippou }:any=UseFireBaseNippou("nippou");
+  const router=useRouter();
+
+  // データ取得
+  const textId=router.query.textId;
+  const textPassword=router.query.textPassword;
+
+  const { login }:any=UseFireBaseLogin("certification");
 
   // モーダル関係
   const [modal, setModal] = useState(false);
   const [date,setDate]=useState("");
   const [isDone,setIsDone]=useState(false);
   const [nippouId,setNippouId]=useState("");
+  
+  // 各ドキュメント
+  const { documents }:any = UseFireBaseCallender("certification","callender");
+  const { nippou }:any=UseFireBaseNippou("certification","nippou");
 
   // モーダルのクローズボタン
   const closeModal = () => {
@@ -54,11 +66,30 @@ const Date = (props:any) => {
     })
   }
 
+  // ログアウト時
+  const onClickLogout=()=>{
+
+  }
+
   return (
-    <div>
+    <>
+      <h3>
+        <Link href="/">topへ</Link>
+      </h3>
+      <h3>
+        <button onClick={onClickLogout}>ログアウト</button>
+      </h3>
       {modal ? (
         <div>
-          <Modal modal={modal} closeModal={closeModal} date={date} isDone={isDone} nippouId={nippouId} />
+          <Modal 
+            modal={modal} 
+            closeModal={closeModal} 
+            date={date} 
+            isDone={isDone} 
+            nippouId={nippouId}
+            dataId={textId} 
+            password={textPassword} 
+          />
         </div>
       ) : (
         <FullCalendar
@@ -72,7 +103,7 @@ const Date = (props:any) => {
           select={props.selectDateByDragAndDrop}
         />
       )}
-    </div>
+    </>
   )
 }
 
