@@ -1,16 +1,16 @@
-import Link from 'next/link'
+import Link from 'next/link';
 import React, { useState } from 'react'
+import { useRecoilState } from 'recoil';
 import { UseFireBaseLogin } from '../hooks/UseFirebaseLogin';
-import { useRouter } from "next/router";
-import { useRecoilState } from "recoil"
 import { groupId } from '../states/groupId';
+import { useRouter } from "next/router";
 
-const Login = () => {
+const AfterGuestSelectUser = () => {
 
   const router = useRouter();
 
   // 各ドキュメント
-  const { login }=UseFireBaseLogin("user","certification");
+  const { login }:any=UseFireBaseLogin("user","certification");
 
   // recoil関係
   const [gid,setGid]:any=useRecoilState(groupId);
@@ -20,13 +20,11 @@ const Login = () => {
   const [textPassword,setTextPassword]=useState("");
 
   // ログイン時
-  const onClickLogin= async ()=>{
-    if(login===undefined) return
-    
-    // 該当データの取得
-    const target:any= login.filter((t)=>{
+  const onClickLogin=()=>{
+
+    const target=login.filter((l:any)=>{
       return (
-        t.dataId===textId && t.password===textPassword
+        l.dataId===textId && l.password===textPassword
       )
     })
 
@@ -36,8 +34,7 @@ const Login = () => {
       )
     })
 
-    if (target.length > 0) {
-
+    if (target.length>0){
       router.push({
         pathname:"/nippou/date/",
         query: {textId,textPassword}
@@ -47,23 +44,24 @@ const Login = () => {
     } else {
       alert("id又はpasswordが異なります。もしくは日報が作られていない可能性があります。");
     }
+
   }
 
   return (
-    <>
-      <h3>ログインしてください</h3>
+    <div>
+      <h3>閲覧したい日報のidとパスワードを入力してください</h3>
+      <p>id</p>
       <input value={textId} onChange={(e)=>setTextId(e.target.value)} />
-      <br />
+      <p>password</p>
       <input value={textPassword} onChange={(e)=>setTextPassword(e.target.value)} />
       <br />
-      {textId==="" || textPassword==="" ? (
-        <p>全て入力してください</p>
-      ) : (
-        <button onClick={onClickLogin}>ログイン</button>
-      )}
-      <Link href="/afterUserLogin">戻る</Link>
-    </>
+      <br />
+      <button onClick={onClickLogin}>ログイン</button>
+      <br />
+      <br />
+      <Link href="/">topへ</Link>
+    </div>
   )
 }
 
-export default Login
+export default AfterGuestSelectUser

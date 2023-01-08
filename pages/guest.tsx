@@ -4,7 +4,7 @@ import React from 'react'
 const Guest = () => {
   return (
     <div>
-      <Link href="/login/">ログイン</Link>
+      <Link href="/guestLogin/">ログイン</Link>
       <br />
       <Link href="/">topへ</Link>
     </div>
