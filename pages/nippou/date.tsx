@@ -18,7 +18,7 @@ const Date = (props:any) => {
   const textId=router.query.textId;
   const textPassword=router.query.textPassword;
 
-  const { login }:any=UseFireBaseLogin("certification");
+  const { login }:any=UseFireBaseLogin("user","certification");
 
   // モーダル関係
   const [modal, setModal] = useState(false);
@@ -27,8 +27,8 @@ const Date = (props:any) => {
   const [nippouId,setNippouId]=useState("");
   
   // 各ドキュメント
-  const { documents }:any = UseFireBaseCallender("certification","callender");
-  const { nippou }:any=UseFireBaseNippou("certification","nippou");
+  const { documents }:any = UseFireBaseCallender("user","certification","callender");
+  const { nippou }:any=UseFireBaseNippou("user","certification","nippou");
 
   // モーダルのクローズボタン
   const closeModal = () => {

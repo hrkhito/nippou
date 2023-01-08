@@ -15,6 +15,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/Modal.jsx", "pages/reviews/[id].js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/Modal.jsx"],
   "exclude": ["node_modules"]
 }

@@ -3,14 +3,16 @@ import { collection, onSnapshot, orderBy, query, } from "firebase/firestore"
 import firestore from '../firebase'
 import { useRecoilState } from "recoil"
 import { groupId } from '../states/groupId'
+import { accountId } from '../states/accountId'
 
-export const UseFireBaseChat = (parents:any,data:any) => {
+export const UseFireBaseChat = (grandparents:any,parents:any,data:any) => {
 
   const [chat, setChat] = useState([])
-  const [id,setId]:any=useRecoilState(groupId);
+  const [gid,setGid]:any=useRecoilState(groupId);
+  const [aid,setAid]:any=useRecoilState(accountId);
 
   useEffect(()=>{
-    const docRef = collection(firestore,parents,id,data)
+    const docRef = collection(firestore,grandparents,aid,parents,gid,data)
     const q = query(docRef,orderBy("timestamp","asc"))
 
     const unsub = onSnapshot(q, snapshot => {
@@ -23,7 +25,7 @@ export const UseFireBaseChat = (parents:any,data:any) => {
   
     return () => unsub()
 
-  },[parents,data,id])
+  },[grandparents,parents,data,aid,gid])
 
   return {chat}
 }
