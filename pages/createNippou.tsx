@@ -5,10 +5,14 @@ import firestore from '../firebase';
 import { useRouter } from "next/router";
 import { useRecoilState } from "recoil"
 import { accountId } from '../states/accountId';
+import { UseFireBaseLogin } from '../hooks/UseFirebaseLogin';
 
 const CreateNippou = () => {
 
   const router = useRouter();
+
+  // ドキュメント関係
+  const { login }=UseFireBaseLogin("user","certification");
 
   // recoil
   const [aid,setAid]=useRecoilState(accountId)
@@ -19,20 +23,26 @@ const CreateNippou = () => {
 
   // 作成時
   const onClickCreate= async ()=>{
-
-    router.push({
-      pathname: "/login/",
+    const target=login.filter((l)=>{
+      return (
+        l.dataId===dataId || l.password===password
+      )
     })
-
-    try {
-      const docRef=collection(firestore,"user",aid,"certification")
-      addDoc(docRef,{dataId,password})
-    } catch (e) {
-      console.log(e);
+    if (target.length>0) {
+      alert("同じid又は同じpasswordが既に存在しています")
+    } else {
+      try {
+        const docRef=collection(firestore,"user",aid,"certification")
+        addDoc(docRef,{dataId,password})
+      } catch (e) {
+        console.log(e);
+      }
+      setDataId("");
+      setPassword("");
+      router.push({
+        pathname: "/login/",
+      })
     }
-
-    setDataId("");
-    setPassword("");
   }
 
   return (
