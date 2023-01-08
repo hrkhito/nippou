@@ -4,6 +4,7 @@ import { useRecoilState } from 'recoil';
 import { UseFireBaseLogin } from '../hooks/UseFirebaseLogin';
 import { groupId } from '../states/groupId';
 import { useRouter } from "next/router";
+import { isOwner } from '../states/isOwner';
 
 const AfterGuestSelectUser = () => {
 
@@ -14,6 +15,8 @@ const AfterGuestSelectUser = () => {
 
   // recoil関係
   const [gid,setGid]:any=useRecoilState(groupId);
+  const [owner,setOwner]:any=useRecoilState(isOwner);
+  console.log(owner);
 
   // state管理
   const [textId,setTextId]=useState("");
@@ -35,6 +38,7 @@ const AfterGuestSelectUser = () => {
     })
 
     if (target.length>0){
+      setOwner(false);
       router.push({
         pathname:"/nippou/date/",
         query: {textId,textPassword}

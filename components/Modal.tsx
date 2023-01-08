@@ -1,11 +1,17 @@
 import React from 'react'
 import { useRouter } from 'next/router';
+import { useRecoilState } from 'recoil';
+import { isOwner } from '../states/isOwner';
 
 const Modal = (props:any) => {
 
   const {modal,closeModal,date,isDone,nippouId,dataId,password}=props;
   
   const router = useRouter();
+
+  // recoil関係
+  const [owner,setOwner]:any=useRecoilState(isOwner);
+  console.log(owner);
 
   const onClickCreate=()=>{
     router.push({
@@ -57,10 +63,14 @@ const Modal = (props:any) => {
           <div style={overlay}>
             <div style={content}>
               <p>date:{date}</p>
-              {isDone ? (
-                <p><button onClick={()=>{onClickEdit()}}>日報編集へ</button></p>
+              {owner ? (
+                isDone ? (
+                  <p><button onClick={()=>{onClickEdit()}}>日報編集へ</button></p>
+                ) : (
+                  <p><button onClick={()=>{onClickCreate()}}>日報作成へ</button></p>
+                )
               ) : (
-                <p><button onClick={()=>{onClickCreate()}}>日報作成へ</button></p>
+                <p>ゲストはレビューのみしかできません。日報作成したいのであればオーナーとしてログインしてください</p>
               )}
               <p><button onClick={()=>{onClickReview()}}>レビューへ</button></p>
               <p><button onClick={closeModal}>close</button></p>
