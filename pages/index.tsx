@@ -8,7 +8,7 @@ const Home: NextPage = () => {
     <ChakraProvider>
       <Link href="/owner/">オーナーとして入室する</Link>
       <br />
-      <Link href="/guest/">ゲストとして入室する</Link>
+      <Link href="/guestLogin/">ゲストとして入室する</Link>
     </ChakraProvider>
   )
 }

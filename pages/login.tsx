@@ -4,6 +4,7 @@ import { UseFireBaseLogin } from '../hooks/UseFirebaseLogin';
 import { useRouter } from "next/router";
 import { useRecoilState } from "recoil"
 import { groupId } from '../states/groupId';
+import { isOwner } from '../states/isOwner';
 
 const Login = () => {
 
@@ -14,6 +15,8 @@ const Login = () => {
 
   // recoil関係
   const [gid,setGid]:any=useRecoilState(groupId);
+  const [owner,setOwner]:any=useRecoilState(isOwner);
+  console.log(owner);
 
   // state管理
   const [textId,setTextId]=useState("");
@@ -37,7 +40,7 @@ const Login = () => {
     })
 
     if (target.length > 0) {
-
+      setOwner(true);
       router.push({
         pathname:"/nippou/date/",
         query: {textId,textPassword}

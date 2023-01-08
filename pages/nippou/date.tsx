@@ -8,6 +8,9 @@ import Modal from '../../components/Modal';
 import { UseFireBaseNippou } from '../../hooks/UseFirebaseNippou';
 import Link from 'next/link';
 import { useRouter } from "next/router";
+import { useRecoilState } from 'recoil';
+import { isOwner } from '../../states/isOwner';
+
 
 const Date = (props:any) => {
 
@@ -16,6 +19,10 @@ const Date = (props:any) => {
   // データ取得
   const textId=router.query.textId;
   const textPassword=router.query.textPassword;
+
+  // recoil関係
+  const [owner,setOwner]:any=useRecoilState(isOwner);
+  console.log(owner);
 
   // モーダル関係
   const [modal, setModal] = useState(false);
@@ -65,7 +72,10 @@ const Date = (props:any) => {
 
   // ログアウト時
   const onClickLogout=()=>{
-
+    setOwner(false);
+    router.push({
+      pathname: "/"
+    })
   }
 
   return (
@@ -73,9 +83,13 @@ const Date = (props:any) => {
       <h3>
         <Link href="/">topへ</Link>
       </h3>
-      <h3>
-        <button onClick={onClickLogout}>ログアウト</button>
-      </h3>
+      {owner ? (
+        <h3>
+          <button onClick={onClickLogout}>ログアウト</button>
+        </h3>
+      ) : (
+        null
+      )}
       {modal ? (
         <div>
           <Modal 
