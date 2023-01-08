@@ -1,30 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import { collection, onSnapshot } from "firebase/firestore"
 import firestore from '../firebase'
-import { useRecoilState } from "recoil"
-import { accountId } from '../states/accountId'
 
-export const UseFireBaseLogin = (parent:any,data:any) => {
+export const UseFireBaseLoginUser = (data:any) => {
 
-  const [login, setLogin] = useState([])
-
-  // recoil
-  const [aid,setAid]=useRecoilState(accountId)
+  const [loginUser, setLoginUser] = useState([])
 
   useEffect(()=>{
-    const docRef = collection(firestore,parent,aid,data)
+    const docRef = collection(firestore, data)
 
     const unsub = onSnapshot(docRef, snapshot => {
       let results:any = []
       snapshot.docs.forEach(doc => {
         results.push({ ...doc.data(), id: doc.id })
       })
-      setLogin(results)
+      setLoginUser(results)
     })
   
     return () => unsub()
 
-  },[parent,data,aid])
+  },[data])
 
-  return {login}
+  return {loginUser}
 }

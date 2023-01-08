@@ -5,12 +5,16 @@ import { addDoc, collection } from 'firebase/firestore';
 import firestore from '../../../firebase';
 import { useRecoilState } from "recoil";
 import { groupId } from '../../../states/groupId';
+import { accountId } from '../../../states/accountId';
 
 const Form = () => {
 
   const router = useRouter();
 
-  const [id,setId]:any=useRecoilState(groupId);
+  const [gid,setGid]:any=useRecoilState(groupId);
+  console.log(gid);
+  const [aid,setAid]:any=useRecoilState(accountId);
+  console.log(aid);
 
   // 業務内容、good news、bad newsの値管理
   const [gyomu,setGyomu]=useState("");
@@ -26,14 +30,14 @@ const Form = () => {
   const onClickSubmit=async ()=>{
 
     try {
-      const docRef=collection(firestore,"certification",id,"callender")
+      const docRef=collection(firestore,"user",aid,"certification",gid,"callender")
       addDoc(docRef,{date:date,title:"日報作成済",dataId:dataId,password:password})
     } catch (e) {
       console.log(e);
     }
 
     try {
-      const docRef=collection(firestore,"certification",id,"nippou")
+      const docRef=collection(firestore,"user",aid,"certification",gid,"nippou")
       await addDoc(docRef,{gyomu:gyomu,good:good,bad:bad,date:date,dataId:dataId,password:password})
     } catch (e) {
       console.log(e);

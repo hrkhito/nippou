@@ -10,7 +10,7 @@ const Login = () => {
   const router = useRouter();
 
   // 各ドキュメント
-  const { login }=UseFireBaseLogin("certification");
+  const { login }=UseFireBaseLogin("user","certification");
 
   // recoil関係
   const [id,setId]:any=useRecoilState(groupId);
@@ -45,7 +45,7 @@ const Login = () => {
       setTextId("");
       setTextPassword("");
     } else {
-      alert("id又はpasswordが異なります");
+      alert("id又はpasswordが異なります。もしくは日報が作られていない可能性があります。");
     }
   }
 
@@ -61,7 +61,7 @@ const Login = () => {
       ) : (
         <button onClick={onClickLogin}>ログイン</button>
       )}
-      <Link href="/">戻る</Link>
+      <Link href="/afterUserLogin">戻る</Link>
     </>
   )
 }

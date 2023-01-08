@@ -6,11 +6,13 @@ import { UseFireBaseChat } from '../../../hooks/UseFirebaseChat';
 import Link from 'next/link';
 import { useRecoilState } from "recoil"
 import { groupId } from '../../../states/groupId';
+import { accountId } from '../../../states/accountId';
 
 const Review = () => {
 
-  const { chat }=UseFireBaseChat("certification","chats");
-  const [id,setId]:any=useRecoilState(groupId);
+  const { chat }=UseFireBaseChat("user","certification","chats");
+  const [gid,setGid]:any=useRecoilState(groupId);
+  const [aid,setAid]:any=useRecoilState(accountId);
 
   // router
   const router=useRouter();
@@ -29,7 +31,7 @@ const Review = () => {
     if(nippouId===undefined) return
     const data=async()=>{
       try {
-        const docRef = doc(firestore,"certification",id,"nippou",nippouId)
+        const docRef = doc(firestore,"user",aid,"certification",gid,"nippou",nippouId)
         const docSnap:any = await getDoc(docRef);
         const data=docSnap.data();
         setNippou(data);
@@ -45,12 +47,12 @@ const Review = () => {
       )
     })
     setTargetChat(target);
-  },[nippouId,chat,date,id])
+  },[aid,nippouId,chat,date,gid])
 
   // チャット送信時
   const onClickChat= async ()=>{
     try {
-      const docRef=collection(firestore,"certification",id,"chats")
+      const docRef=collection(firestore,"user",aid,"certification",gid,"chats")
       await addDoc(docRef,{message,date,timestamp:serverTimestamp()})
     } catch (e) {
       console.log(e);

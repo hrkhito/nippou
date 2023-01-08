@@ -3,14 +3,16 @@ import { collection, onSnapshot } from "firebase/firestore"
 import firestore from '../firebase'
 import { useRecoilState } from "recoil"
 import { groupId } from '../states/groupId'
+import { accountId } from '../states/accountId'
 
-export const UseFireBaseNippou = (parents:any,data:any) => {
+export const UseFireBaseNippou = (grandparents:any,parents:any,data:any) => {
 
   const [nippou,setNippou] = useState([])
-  const [id,setId]:any=useRecoilState(groupId);
+  const [gid,setGid]:any=useRecoilState(groupId);
+  const [aid,setAid]:any=useRecoilState(accountId);
 
   useEffect(()=>{
-    const docRef = collection(firestore,parents,id,data)
+    const docRef = collection(firestore,grandparents,aid,parents,gid,data)
 
     const unsub = onSnapshot(docRef, snapshot => {
       let results:any = []
@@ -22,7 +24,7 @@ export const UseFireBaseNippou = (parents:any,data:any) => {
   
     return () => unsub()
 
-  },[id,parents,data])
+  },[grandparents,aid,gid,parents,data])
 
   return {nippou}
 }

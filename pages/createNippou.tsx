@@ -3,10 +3,15 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 import firestore from '../firebase';
 import { useRouter } from "next/router";
+import { useRecoilState } from "recoil"
+import { accountId } from '../states/accountId';
 
 const CreateNippou = () => {
 
   const router = useRouter();
+
+  // recoil
+  const [aid,setAid]=useRecoilState(accountId)
 
   // state管理
   const [dataId,setDataId]=useState("");
@@ -20,7 +25,7 @@ const CreateNippou = () => {
     })
 
     try {
-      const docRef=collection(firestore,"certification")
+      const docRef=collection(firestore,"user",aid,"certification")
       addDoc(docRef,{dataId,password})
     } catch (e) {
       console.log(e);
@@ -42,7 +47,7 @@ const CreateNippou = () => {
         <button onClick={onClickCreate}>作成</button>
       )}
       <br />
-      <Link href="/">戻る</Link>
+      <Link href="/afterUserLogin">戻る</Link>
     </div>
   )
 }
