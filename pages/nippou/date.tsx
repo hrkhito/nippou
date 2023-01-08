@@ -8,7 +8,6 @@ import Modal from '../../components/Modal';
 import { UseFireBaseNippou } from '../../hooks/UseFirebaseNippou';
 import Link from 'next/link';
 import { useRouter } from "next/router";
-import { UseFireBaseLogin } from '../../hooks/UseFirebaseLogin';
 
 const Date = (props:any) => {
 
@@ -17,8 +16,6 @@ const Date = (props:any) => {
   // データ取得
   const textId=router.query.textId;
   const textPassword=router.query.textPassword;
-
-  const { login }:any=UseFireBaseLogin("user","certification");
 
   // モーダル関係
   const [modal, setModal] = useState(false);
