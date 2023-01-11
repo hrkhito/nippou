@@ -10,6 +10,11 @@ import Link from 'next/link';
 import { useRouter } from "next/router";
 import { useRecoilState } from 'recoil';
 import { isOwner } from '../../states/isOwner';
+import { UseFireBaseLoginUser } from '../../hooks/UseFirebaseUserLogin';
+import { accountId } from '../../states/accountId';
+import firestore from '../../firebase';
+import { groupId } from '../../states/groupId';
+import { deleteDoc, doc } from 'firebase/firestore';
 
 
 const Date = (props:any) => {
@@ -22,17 +27,23 @@ const Date = (props:any) => {
 
   // recoil関係
   const [owner,setOwner]:any=useRecoilState(isOwner);
-  console.log(owner);
+  const [aid,setAid]:any=useRecoilState(accountId);
+  const [gid,setGid]:any=useRecoilState(groupId);
+  console.log(gid);
+  console.log(aid);
 
   // モーダル関係
   const [modal, setModal] = useState(false);
   const [date,setDate]=useState("");
   const [isDone,setIsDone]=useState(false);
   const [nippouId,setNippouId]=useState("");
+  const [callenderId,setCallenderId]=useState("");
   
   // 各ドキュメント
   const { documents }:any = UseFireBaseCallender("user","certification","callender");
   const { nippou }:any=UseFireBaseNippou("user","certification","nippou");
+  const { loginUser }:any=UseFireBaseLoginUser("user");
+  console.log(loginUser);
 
   // モーダルのクローズボタン
   const closeModal = () => {
@@ -48,6 +59,12 @@ const Date = (props:any) => {
     const filter= await documents.filter((document:any)=>{
       return (
         document.date===arg.dateStr
+      )
+    })
+
+    filter.map((f:any)=>{
+      return (
+        setCallenderId(f.id)
       )
     })
 
@@ -78,15 +95,39 @@ const Date = (props:any) => {
     })
   }
 
+  // アカウントを削除時
+  const onClickDeleteAccount= async ()=>{
+    // const answer=window.confirm("本当に削除しますか");
+    // // 削除確認後の処理
+    // if (answer) {
+    //   const docUser = doc(firestore,"user",aid,);
+    //   await deleteDoc(docUser);
+    //   router.push({
+    //     pathname: "/"
+    //   })
+    // }
+  }
+
+  // プロフィール編集時
+  const onClickEditProfile=()=>{
+
+  }
+
   return (
     <>
-      <h3>
-        <Link href="/">topへ</Link>
-      </h3>
+      <div>
+        <button>
+          <Link href="/">topへ</Link>
+        </button>
+      </div>
       {owner ? (
-        <h3>
+        <div>
           <button onClick={onClickLogout}>ログアウト</button>
-        </h3>
+          <br />
+          <button onClick={onClickDeleteAccount}>アカウントを削除する</button>
+          <br />
+          <button onClick={onClickEditProfile}>プロフィールを編集する</button>
+        </div>
       ) : (
         null
       )}
@@ -98,6 +139,7 @@ const Date = (props:any) => {
             date={date} 
             isDone={isDone} 
             nippouId={nippouId}
+            callenderId={callenderId}
             dataId={textId} 
             password={textPassword} 
           />

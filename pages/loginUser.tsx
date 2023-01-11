@@ -14,7 +14,6 @@ const LoginUser = () => {
 
   // recoil関係
   const [aid,setAid]=useRecoilState(accountId)
-  console.log(aid);
 
   // state管理
   const [userName,setUserName]=useState("");

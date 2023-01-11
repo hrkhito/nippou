@@ -16,7 +16,6 @@ const Login = () => {
   // recoil関係
   const [gid,setGid]:any=useRecoilState(groupId);
   const [owner,setOwner]:any=useRecoilState(isOwner);
-  console.log(owner);
 
   // state管理
   const [textId,setTextId]=useState("");

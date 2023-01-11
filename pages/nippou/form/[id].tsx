@@ -12,9 +12,7 @@ const Form = () => {
   const router = useRouter();
 
   const [gid,setGid]:any=useRecoilState(groupId);
-  console.log(gid);
   const [aid,setAid]:any=useRecoilState(accountId);
-  console.log(aid);
 
   // 業務内容、good news、bad newsの値管理
   const [gyomu,setGyomu]=useState("");
