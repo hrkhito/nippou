@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { useRecoilState } from "recoil"
 import { accountId } from '../states/accountId';
 import { UseFireBaseLogin } from '../hooks/UseFirebaseLogin';
+import { Box, Input, Button, Text } from '@chakra-ui/react';
 
 const CreateNippou = () => {
 
@@ -66,19 +67,48 @@ const CreateNippou = () => {
   }
 
   return (
-    <div>
-      <input value={dataId} onChange={(e)=>onChangeUserName(e)} />
-      <br />
-      <input value={password} onChange={(e)=>onChangeUserId(e)} />
-      <br />
+    <Box
+      bg="purple.50"
+      w="100%"
+      h='calc(100vh)'
+      textAlign="center"
+      pt="40"
+    >
       {isAdminDataId && isAdminPassword ? (
-        <button onClick={onClickCreate}>作成</button>
+        null
       ) : (
-        <p>全て入力してください。またidとpasswordは5文字以上でなければいけません。</p>
+        <Text fontWeight="bold" mb="8">全て入力してください。またidとpasswordは5文字以上でなければいけません。</Text>
+      )}
+      <Box mb="8">
+        <Text fontWeight="bold" mb="2">日報id</Text>
+        <Input
+          w="20%"
+          mb="4" 
+          borderWidth={2}
+          borderColor="blackAlpha.400"
+          value={dataId}
+          onChange={(e)=>onChangeUserName(e)}
+        />
+        <Text fontWeight="bold" mb="2">日報password</Text>
+        <Input
+          w="20%"
+          mb="4" 
+          borderWidth={2}
+          borderColor="blackAlpha.400"
+          value={password}
+          onChange={(e)=>onChangeUserId(e)}
+        />
+      </Box>
+      {isAdminDataId && isAdminPassword ? (
+        <Button mb="8" bg="purple.400" color="white" onClick={onClickCreate}>作成</Button>
+      ) : (
+        null
       )}
       <br />
-      <Link href="/afterUserLogin">戻る</Link>
-    </div>
+      <Button>
+        <Link href="/afterUserLogin">戻る</Link>
+      </Button>
+    </Box>
   )
 }
 
