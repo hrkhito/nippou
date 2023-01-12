@@ -4,7 +4,7 @@ import { UseFireBaseLoginUser } from '../hooks/UseFirebaseUserLogin';
 import { useRecoilState } from "recoil"
 import { accountId } from '../states/accountId';
 import { useRouter } from "next/router";
-import { Box, Button, Input, Text } from '@chakra-ui/react';
+import { Box, Button, Input, Text, Heading } from '@chakra-ui/react';
 
 const LoginUser = () => {
 
@@ -57,6 +57,16 @@ const LoginUser = () => {
       textAlign="center"
       pt="40"
     >
+      <Heading
+        as="h3"
+        w="72%"
+        mr="auto"
+        ml="auto"
+        mb="16"
+        fontSize="large"
+      >
+        ログインしてください
+      </Heading>
       <Box mb="8">
         <Text fontWeight="bold" mb="2">ユーザー名</Text>
         <Input 

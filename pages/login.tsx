@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { useRecoilState } from "recoil"
 import { groupId } from '../states/groupId';
 import { isOwner } from '../states/isOwner';
+import { Box, Heading, Input, Text, Button } from '@chakra-ui/react';
 
 const Login = () => {
 
@@ -52,19 +53,51 @@ const Login = () => {
   }
 
   return (
-    <>
-      <h3>ログインしてください</h3>
-      <input value={textId} onChange={(e)=>setTextId(e.target.value)} />
-      <br />
-      <input value={textPassword} onChange={(e)=>setTextPassword(e.target.value)} />
-      <br />
+    <Box
+      bg="purple.50"
+      w="100%"
+      h='calc(100vh)'
+      textAlign="center"
+      pt="40"
+    >
+      <Heading
+        as="h3"
+        w="72%"
+        mr="auto"
+        ml="auto"
+        mb="16"
+        fontSize="large"
+      >
+        ログインしてください
+      </Heading>
+      <Box mb="8">
+        <Text fontWeight="bold" mb="2">日報id</Text>
+        <Input
+          w="20%" 
+          mb="4" 
+          borderWidth={2} 
+          borderColor="blackAlpha.400"
+          value={textId} 
+          onChange={(e)=>setTextId(e.target.value)} 
+        />
+        <Text fontWeight="bold" mb="2">日報password</Text>
+        <Input
+          w="20%" 
+          mb="4" 
+          borderWidth={2} 
+          borderColor="blackAlpha.400"
+          value={textPassword} 
+          onChange={(e)=>setTextPassword(e.target.value)} 
+        />
+      </Box>
       {textId==="" || textPassword==="" ? (
-        <p>全て入力してください</p>
+        <Text fontWeight="bold" mb="8">全て入力してください</Text>
       ) : (
-        <button onClick={onClickLogin}>ログイン</button>
+        <Button bg="purple.400" color="white" mb="8" onClick={onClickLogin}>ログイン</Button>
       )}
+      <br />
       <Link href="/afterUserLogin">戻る</Link>
-    </>
+    </Box>
   )
 }
 

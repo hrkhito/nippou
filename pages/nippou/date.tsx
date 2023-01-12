@@ -29,8 +29,6 @@ const Date = (props:any) => {
   const [owner,setOwner]:any=useRecoilState(isOwner);
   const [aid,setAid]:any=useRecoilState(accountId);
   const [gid,setGid]:any=useRecoilState(groupId);
-  console.log(gid);
-  console.log(aid);
 
   // モーダル関係
   const [modal, setModal] = useState(false);
