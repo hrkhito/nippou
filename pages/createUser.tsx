@@ -96,7 +96,7 @@ const CreateUser = () => {
       ) : (
         <Text fontWeight="bold" mb="8">全て入力してください。又、ユーザー名・id・passwordは5文字以上でなければなりません。</Text>
       )}
-      <Box>
+      <Box mb="8">
         <Text fontWeight="bold" mb="2">ユーザー名</Text>
         <Input 
           w="20%"
@@ -126,7 +126,7 @@ const CreateUser = () => {
         />
       </Box>
       {isAdminUserName && isAdminUserId && isAdminUserPassword ? (
-        <Button onClick={onClickCreateUser}>作成</Button>
+        <Button mb="8" bg="purple.400" color="white" onClick={onClickCreateUser}>作成</Button>
       ) : (
         null
       )}
