@@ -22,20 +22,20 @@ const Home: NextPage = () => {
   }
 
   return (
-    <ChakraProvider>
+    <>
       {modal ? (
         <ExplanatoryModal modal={modal} onClickCloseModal={onClickCloseModal} />
       ) : (
         null
       )}
-      <Box 
-        bg="purple.50" 
-        w="100%" 
-        h='calc(100vh)' 
+      <Box
+        bg="purple.50"
+        w="100%"
+        h='calc(100vh)'
         textAlign="center"
         pt="48"
       >
-        <Heading  
+        <Heading
           as="h1"
           w="88%"
           mr="auto"
@@ -52,12 +52,16 @@ const Home: NextPage = () => {
           null
         ) : (
           <Flex justifyContent="center">
-            <Button bg="purple.400" color="white" mr="8"><Link href="/owner/">オーナーとして入室する</Link></Button>
-            <Button bg="purple.400" color="white"><Link href="/guestLogin/">ゲストとして入室する</Link></Button>
+            <Button bg="purple.400" color="white" mr="8">
+              <Link href="/owner/">オーナーとして入室する</Link>
+            </Button>
+            <Button bg="purple.400" color="white">
+              <Link href="/guestLogin/">ゲストとして入室する</Link>
+            </Button>
           </Flex>
         )}
       </Box>
-    </ChakraProvider>
+    </>
   )
 }
 
