@@ -34,7 +34,7 @@ const ExplanatoryModal = (props:any) => {
           この日報管理アプリではオーナーとして日報を作成することができ、ゲストとして他のオーナーの日報を閲覧することもできます。
         </Text>
         <Text fontWeight="bold" mb="2">
-          なお、オーナーになるにはusername,userid,userpasswordを作成しなければなりません。
+          なお、オーナーになるにはユーザー名,ユーザーid,ユーザーパスワードを作成しなければなりません。
         </Text>
         <Text fontWeight="bold" mb="2">
           また日報作成にあたってもnippouid,nippoupasswordを作成しなければなりません。

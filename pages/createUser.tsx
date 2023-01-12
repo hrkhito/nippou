@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import firestore from '../firebase';
 import { useRouter } from "next/router";
 import { UseFireBaseLoginUser } from '../hooks/UseFirebaseUserLogin';
+import { Box, Button, Input, Text } from '@chakra-ui/react';
 
 const CreateUser = () => {
 
@@ -31,14 +32,15 @@ const CreateUser = () => {
     })
 
     if (target.length>0) {
+      alert("同じユーザー名か同じid、もしくは同じpasswordが既に存在しているため被らないようにしてください")
       // ここまで警告しなくても良いかも
-      if(target[0].userName===userName) {
-        alert("同じユーザー名が既に存在しているものです")
-      } else if (target[0].userId===userId) {
-        alert("同じidが既に存在しているものです")
-      } else if (target[0].userPassword===userPassword) {
-        alert("同じpasswordが既に存在しているものです")
-      }
+      // if(target[0].userName===userName) {
+      //   alert("同じユーザー名が既に存在しているものです")
+      // } else if (target[0].userId===userId) {
+      //   alert("同じidが既に存在しているものです")
+      // } else if (target[0].userPassword===userPassword) {
+      //   alert("同じpasswordが既に存在しているものです")
+      // }
     } else {
       try {
         const docRef=collection(firestore,"user")
@@ -82,22 +84,57 @@ const CreateUser = () => {
   }
 
   return (
-    <div>
-      <p>ユーザー名</p>
-      <input value={userName} onChange={(e)=>onChangeUserName(e)} />
-      <p>ユーザーid</p>
-      <input value={userId} onChange={(e)=>onChangeUserId(e)} />
-      <p>パスワード</p>
-      <input value={userPassword} onChange={(e)=>onChangeUserPassword(e)} />
-      <br />
+    <Box
+      bg="purple.50"
+      w="100%"
+      h='calc(100vh)'
+      textAlign="center"
+      pt="40"
+    >
       {isAdminUserName && isAdminUserId && isAdminUserPassword ? (
-        <button onClick={onClickCreateUser}>作成</button>
+        null
       ) : (
-        <p>全て入力してください。又、ユーザー名・id・passwordは5文字以上でなければなりません。</p>
+        <Text fontWeight="bold" mb="8">全て入力してください。又、ユーザー名・id・passwordは5文字以上でなければなりません。</Text>
+      )}
+      <Box>
+        <Text fontWeight="bold" mb="2">ユーザー名</Text>
+        <Input 
+          w="20%"
+          mb="4" 
+          borderWidth={2}
+          borderColor="blackAlpha.400"
+          value={userName} 
+          onChange={(e)=>onChangeUserName(e)} 
+        />
+        <Text fontWeight="bold" mb="2">ユーザーid</Text>
+        <Input 
+          w="20%" 
+          mb="4" 
+          borderWidth={2}
+          borderColor="blackAlpha.400"
+          value={userId} 
+          onChange={(e)=>onChangeUserId(e)} 
+        />
+        <Text fontWeight="bold" mb="2">ユーザーパスワード</Text>
+        <Input 
+          w="20%" 
+          mb="4" 
+          borderWidth={2} 
+          borderColor="blackAlpha.400"
+          value={userPassword} 
+          onChange={(e)=>onChangeUserPassword(e)} 
+        />
+      </Box>
+      {isAdminUserName && isAdminUserId && isAdminUserPassword ? (
+        <Button onClick={onClickCreateUser}>作成</Button>
+      ) : (
+        null
       )}
       <br />
-      <Link href="/owner/">戻る</Link>
-    </div>
+      <Button>
+        <Link href="/owner/">戻る</Link>
+      </Button>
+    </Box>
   )
 }
 
