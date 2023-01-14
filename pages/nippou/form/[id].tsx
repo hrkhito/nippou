@@ -6,6 +6,7 @@ import firestore from '../../../firebase';
 import { useRecoilState } from "recoil";
 import { groupId } from '../../../states/groupId';
 import { accountId } from '../../../states/accountId';
+import { Box, Text, Button, Textarea, Heading } from '@chakra-ui/react';
 
 const Form = () => {
 
@@ -48,22 +49,59 @@ const Form = () => {
   }
 
   return (
-    <div>
-      <div>
-        <p>{date}</p>
-        <h3>業務内容</h3>
-        <textarea value={gyomu} onChange={(e)=>setGyomu(e.target.value)}></textarea>
+    <Box
+      bg="purple.50"
+      w="100%"
+      h='calc(100vh)'
+      textAlign="center"
+      pt="16"
+    >
+      <Box mb="8">
+        <Heading fontSize="3xl" mb="8">{date}</Heading>
+        <Text fontWeight="bold" mb="2">業務内容</Text>
+        <Textarea
+          w="50%"
+          mb="4" 
+          borderWidth={2} 
+          borderColor="blackAlpha.400"
+          value={gyomu} 
+          onChange={(e)=>setGyomu(e.target.value)}
+        >
+        </Textarea>
         <br />
-        <h3>good news</h3>
-        <textarea value={good} onChange={(e)=>setGood(e.target.value)}></textarea>
+        <Text fontWeight="bold" mb="2">good news</Text>
+        <Textarea
+          w="50%"
+          mb="4" 
+          borderWidth={2} 
+          borderColor="blackAlpha.400"
+          value={good} 
+          onChange={(e)=>setGood(e.target.value)}
+        >
+        </Textarea>
         <br />
-        <h3>bad news</h3>
-        <textarea value={bad} onChange={(e)=>setBad(e.target.value)}></textarea>
-      </div>
-      {gyomu!=="" && good!=="" && bad!=="" ? <Link href="/nippou/date/" onClick={()=>{onClickSubmit()}}>提出</Link> : <p>全て記入してください</p>}
+        <Text fontWeight="bold" mb="2">bad news</Text>
+        <Textarea
+          w="50%"
+          mb="4" 
+          borderWidth={2} 
+          borderColor="blackAlpha.400" 
+          value={bad} 
+          onChange={(e)=>setBad(e.target.value)}
+        >
+        </Textarea>
+      </Box>
+      {gyomu!=="" && good!=="" && bad!=="" ? 
+        <Button mb="8" bg="purple.400" color="white">
+          <Link href="/nippou/date/" onClick={()=>{onClickSubmit()}}>提出</Link>
+        </Button> : 
+        <Text mb="4">全て記入してください</Text>
+      }
       <br />
-      <Link href="/nippou/date/">戻る</Link>
-    </div>
+      <Button>
+        <Link href="/nippou/date/">戻る</Link>
+      </Button>
+    </Box>
   )
 }
 
