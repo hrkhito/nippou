@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useRecoilState } from "recoil"
 import { groupId } from '../../../states/groupId';
 import { accountId } from '../../../states/accountId';
+import { Box, Button, Heading, Text, Textarea } from '@chakra-ui/react';
 
 const Edit = () => {
 
@@ -93,22 +94,66 @@ const Edit = () => {
   }
 
   return (
-    <div>
-      <p>date:{date}</p>
-      <h3>業務内容</h3>
-      <textarea disabled={textSurveillance} ref={gyomuText} value={nippou.gyomu} onChange={(e)=>{onChangeGyomu(e)}}></textarea>
-      <br />
-      <h3>good news</h3>
-      <textarea disabled={goodSurveillance} ref={goodText} value={nippou.good} onChange={(e)=>{onChangeGood(e)}}></textarea>
-      <br />
-      <h3>bad news</h3>
-      <textarea disabled={badSurveillance} ref={badText} value={nippou.bad} onChange={(e)=>{onChangeBad(e)}}></textarea>
+    <Box
+      bg="purple.50"
+      w="100%"
+      h='calc(100vh)'
+      textAlign="center"
+      pt="16"
+    >
+      <Box mb="8">
+        <Heading fontSize="3xl" mb="8">{date}</Heading>
+        <Text fontWeight="bold" mb="2">業務内容</Text>
+        <Textarea
+          w="50%"
+          mb="4" 
+          borderWidth={2} 
+          borderColor="blackAlpha.400" 
+          disabled={textSurveillance} 
+          ref={gyomuText} 
+          value={nippou.gyomu} 
+          onChange={(e)=>{onChangeGyomu(e)}}
+        >
+        </Textarea>
+        <br />
+        <Text fontWeight="bold" mb="2">good news</Text>
+        <Textarea
+          w="50%"
+          mb="4" 
+          borderWidth={2} 
+          borderColor="blackAlpha.400"  
+          disabled={goodSurveillance} 
+          ref={goodText} 
+          value={nippou.good} 
+          onChange={(e)=>{onChangeGood(e)}}
+        >
+        </Textarea>
+        <br />
+        <Text fontWeight="bold" mb="2">bad news</Text>
+        <Textarea
+          w="50%"
+          mb="4" 
+          borderWidth={2} 
+          borderColor="blackAlpha.400"  
+          disabled={badSurveillance} 
+          ref={badText} 
+          value={nippou.bad} 
+          onChange={(e)=>{onChangeBad(e)}}
+        >
+        </Textarea>
+      </Box>
       {textSurveillance || goodSurveillance || badSurveillance ? (
-        <p>空では更新できません</p>
+        <Text>空では更新できません</Text>
       ) : (
-        <Link href="/nippou/date/" onClick={onClickUpdate}>更新</Link>
+        <Button mb="8" bg="purple.400" color="white">
+          <Link href="/nippou/date/" onClick={onClickUpdate}>更新</Link>
+        </Button>
       )}
-    </div>
+      <br />
+      <Button>
+        <Link href="/nippou/date/">戻る</Link>
+      </Button>
+    </Box>
   )
 }
 
