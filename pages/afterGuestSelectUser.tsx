@@ -5,6 +5,7 @@ import { UseFireBaseLogin } from '../hooks/UseFirebaseLogin';
 import { groupId } from '../states/groupId';
 import { useRouter } from "next/router";
 import { isOwner } from '../states/isOwner';
+import { Box, Button, Heading, Input, Text } from '@chakra-ui/react';
 
 const AfterGuestSelectUser = () => {
 
@@ -52,19 +53,49 @@ const AfterGuestSelectUser = () => {
   }
 
   return (
-    <div>
-      <h3>閲覧したい日報のidとパスワードを入力してください</h3>
-      <p>id</p>
-      <input value={textId} onChange={(e)=>setTextId(e.target.value)} />
-      <p>password</p>
-      <input value={textPassword} onChange={(e)=>setTextPassword(e.target.value)} />
+    <Box
+      bg="purple.50"
+      w="100%"
+      h='calc(100vh)'
+      textAlign="center"
+      pt="16"
+    >
+      <Heading 
+        as="h3"
+        w="72%"
+        mr="auto"
+        ml="auto"
+        mb="16"
+        fontSize="large"
+      >
+        閲覧したい日報のidとパスワードを入力してください
+      </Heading>
+      <Box mb="8">
+        <Text fontWeight="bold" mb="2">日報id</Text>
+        <Input
+          w="20%" 
+          mb="4" 
+          borderWidth={2} 
+          borderColor="blackAlpha.400"
+          value={textId} 
+          onChange={(e)=>setTextId(e.target.value)} 
+        />
+        <Text fontWeight="bold" mb="2">日報password</Text>
+        <Input
+          w="20%" 
+          mb="4" 
+          borderWidth={2} 
+          borderColor="blackAlpha.400" 
+          value={textPassword} 
+          onChange={(e)=>setTextPassword(e.target.value)} 
+        />
+      </Box>
+      <Button bg="purple.400" color="white" mb="8" onClick={onClickLogin}>ログイン</Button>
       <br />
-      <br />
-      <button onClick={onClickLogin}>ログイン</button>
-      <br />
-      <br />
-      <Link href="/">topへ</Link>
-    </div>
+      <Button>
+        <Link href="/">topへ</Link>
+      </Button>
+    </Box>
   )
 }
 
