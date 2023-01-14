@@ -4,6 +4,7 @@ import { UseFireBaseLoginUser } from '../hooks/UseFirebaseUserLogin';
 import { useRecoilState } from "recoil"
 import { accountId } from '../states/accountId';
 import { useRouter } from "next/router";
+import { Box, Button, Input, Text, Heading } from '@chakra-ui/react';
 
 const LoginUser = () => {
 
@@ -14,7 +15,6 @@ const LoginUser = () => {
 
   // recoil関係
   const [aid,setAid]=useRecoilState(accountId)
-  console.log(aid);
 
   // state管理
   const [userName,setUserName]=useState("");
@@ -50,22 +50,62 @@ const LoginUser = () => {
   }
 
   return (
-    <div>
-      <p>ユーザー名</p>
-      <input value={userName} onChange={(e)=>setUserName(e.target.value)} />
-      <p>ユーザーid</p>
-      <input value={userId} onChange={(e)=>setUserId(e.target.value)} />
-      <p>パスワード</p>
-      <input value={userPassword} onChange={(e)=>setUserPassword(e.target.value)} />
-      <br />
+    <Box
+      bg="purple.50"
+      w="100%"
+      h='calc(100vh)'
+      textAlign="center"
+      pt="40"
+    >
+      <Heading
+        as="h3"
+        w="72%"
+        mr="auto"
+        ml="auto"
+        mb="16"
+        fontSize="large"
+      >
+        ログインしてください
+      </Heading>
+      <Box mb="8">
+        <Text fontWeight="bold" mb="2">ユーザー名</Text>
+        <Input 
+          w="20%" 
+          mb="4" 
+          borderWidth={2} 
+          borderColor="blackAlpha.400"
+          value={userName} 
+          onChange={(e)=>setUserName(e.target.value)} 
+        />
+        <Text fontWeight="bold" mb="2">ユーザーid</Text>
+        <Input
+          w="20%" 
+          mb="4" 
+          borderWidth={2} 
+          borderColor="blackAlpha.400"
+          value={userId} 
+          onChange={(e)=>setUserId(e.target.value)} 
+        />
+        <Text fontWeight="bold" mb="2">ユーザーパスワード</Text>
+        <Input
+          w="20%" 
+          mb="4" 
+          borderWidth={2} 
+          borderColor="blackAlpha.400"
+          value={userPassword}
+          onChange={(e)=>setUserPassword(e.target.value)} 
+        />
+      </Box>
       {userName!=="" && userId!=="" && userPassword!=="" ? (
-        <button onClick={onClickLoginUser}>ログイン</button>
+        <Button bg="purple.400" color="white" mb="8" onClick={onClickLoginUser}>ログイン</Button>
       ) : (
-        <p>全て入力してください</p>
+        <Text fontWeight="bold" mb="8">全て入力してください</Text>
       )}
       <br />
-      <Link href="/owner/">戻る</Link>
-    </div>
+      <Button>
+        <Link href="/owner/">戻る</Link>
+      </Button>
+    </Box>
   )
 }
 
