@@ -96,7 +96,9 @@ const Login = () => {
         <Button bg="purple.400" color="white" mb="8" onClick={onClickLogin}>ログイン</Button>
       )}
       <br />
-      <Link href="/afterUserLogin">戻る</Link>
+      <Button>
+        <Link href="/afterUserLogin">戻る</Link>
+      </Button>
     </Box>
   )
 }
