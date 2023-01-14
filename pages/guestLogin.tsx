@@ -4,6 +4,7 @@ import { UseFireBaseLoginUser } from '../hooks/UseFirebaseUserLogin';
 import { accountId } from '../states/accountId';
 import { useRouter } from "next/router";
 import Link from 'next/link';
+import { Box, Button, Text } from '@chakra-ui/react';
 
 const GuestLogin = () => {
 
@@ -24,18 +25,38 @@ const GuestLogin = () => {
   }
 
   return (
-    <div>
-      <h3>閲覧する日報を選択してください</h3>
+    <Box
+      bg="purple.50"
+      w="100%"
+      h='calc(100vh)'
+      textAlign="center"
+      pt="16"
+    >
+      <Text fontWeight="bold" mb="8">
+        閲覧する日報を選択してください
+      </Text>
       {loginUser.map((lu:any)=>{
         return (
-          <div key={lu.id}>
-            <p>ユーザー名:{lu.userName}</p>
-            <button onClick={()=>{onClickSelectUser(lu.id)}}>選択</button>
-          </div>
+          <Box 
+            key={lu.id} 
+            mb="8"
+            mr="auto"
+            ml="auto"
+            p="4" 
+            w="20%"
+            borderWidth={2}
+            borderRadius="base" 
+            borderColor="blackAlpha.400"
+          >
+            <Text fontWeight="bold" mb="4">ユーザー名:{lu.userName}</Text>
+            <Button onClick={()=>{onClickSelectUser(lu.id)}}>選択</Button>
+          </Box>
         )
       })}
-      <Link href="/">topへ</Link>
-    </div>
+      <Button>
+        <Link href="/">topへ</Link>
+      </Button>
+    </Box>
   )
 }
 
