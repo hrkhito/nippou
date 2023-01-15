@@ -127,7 +127,11 @@ const Review = () => {
           >
             {nippou.bad}
           </Text>
-          <Text mb="4" fontWeight="bold">編集は編集ページでお願いします</Text>
+          {isowner ? (
+            <Text mb="4" fontWeight="bold">編集は編集ページでお願いします</Text>
+          ) : (
+            null
+          )}
           <Button bg="purple.400" color="white">
             <Link href="/nippou/date/">戻る</Link>
           </Button>
