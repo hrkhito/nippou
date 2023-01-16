@@ -6,6 +6,7 @@ import { deleteDoc, doc } from 'firebase/firestore';
 import firestore from '../firebase';
 import { accountId } from '../states/accountId';
 import { groupId } from '../states/groupId';
+import { Box, Button, Flex, Text } from '@chakra-ui/react';
 
 const Modal = (props:any) => {
 
@@ -78,33 +79,35 @@ const Modal = (props:any) => {
   }
 
   return (
-    <>
+    <Box>
       {
         modal ? (
-          <div style={overlay}>
-            <div style={content}>
-              <p>date:{date}</p>
+          <Box style={overlay}>
+            <Box style={content}>
+              <Text>date:{date}</Text>
               {owner ? (
                 isDone ? (
-                  <div>
-                    <p><button onClick={()=>{onClickEdit()}}>日報編集へ</button></p>
-                    <p><button onClick={()=>{onClickDelete()}}>日報削除</button></p>
-                  </div>
+                    <Flex>
+                      <Button onClick={()=>{onClickEdit()}}>日報編集へ</Button>
+                      <Button onClick={()=>{onClickDelete()}}>日報削除</Button>
+                    </Flex>
                 ) : (
-                  <p><button onClick={()=>{onClickCreate()}}>日報作成へ</button></p>
+                  <Button onClick={()=>{onClickCreate()}}>日報作成へ</Button>
                 )
               ) : (
-                <p>ゲストはレビューのみしかできません。日報作成したいのであればオーナーとしてログインしてください</p>
+                <Text>ゲストはレビューのみしかできません。日報作成したいのであればオーナーとしてログインしてください</Text>
               )}
-              <p><button onClick={()=>{onClickReview()}}>レビューへ</button></p>
-              <p><button onClick={closeModal}>close</button></p>
-            </div>
-          </div>
+              <Flex>
+                <Button onClick={()=>{onClickReview()}}>レビューへ</Button>
+                <Button onClick={closeModal}>close</Button>
+              </Flex>
+            </Box>
+          </Box>
         ) : (
           null
         )
       }
-    </>
+    </Box>
   )
 }
 
