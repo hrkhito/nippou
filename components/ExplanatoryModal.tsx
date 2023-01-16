@@ -23,15 +23,17 @@ const ExplanatoryModal = (props:any) => {
   const content={
     zIndex:2 ,
     width:"50%",
+    height:"40%",
     padding: "1em",
-    backgroundColor:"#FAF5FF"
+    backgroundColor:"#E9D8FD",
+    borderRadius: "10%"
   }
 
   return (
     <Box style={overlay}>
       <Box style={content}>
         <Text fontWeight="bold" mb="2">
-          この日報管理アプリではオーナーとして日報を作成することができ、ゲストとして他のオーナーの日報を閲覧することもできます。
+          日報管理アプリではオーナーとして日報を作成することができ、ゲストとして他のオーナーの日報を閲覧することもできます。
         </Text>
         <Text fontWeight="bold" mb="2">
           なお、オーナーになるにはユーザー名,ユーザーid,ユーザーパスワードを作成しなければなりません。
@@ -42,7 +44,7 @@ const ExplanatoryModal = (props:any) => {
         <Text fontWeight="bold" mb="2">
           ゲストとして入出する際も、閲覧したい日報のnippouid,nippoupasswordを入力しなければなりません。
         </Text>
-        <Text fontWeight="bold" mb="2">またチャットツールを用いて日報について直接やり取りも行えます！</Text>
+        <Text fontWeight="bold" mb="4">またチャットツールを用いて日報について直接やり取りも行えます！</Text>
         <Flex justifyContent="center">
           <Button bg="purple.400" color="white" onClick={onClickCloseModal}>close</Button>
         </Flex>
