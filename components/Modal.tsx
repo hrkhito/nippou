@@ -74,8 +74,10 @@ const Modal = (props:any) => {
   const content={
     zIndex:2 ,
     width:"50%",
+    height: "40%",
     padding: "1em",
-    background:"#fff"
+    background:"#E9D8FD",
+    borderRadius: "10%"
   }
 
   return (
@@ -84,23 +86,42 @@ const Modal = (props:any) => {
         modal ? (
           <Box style={overlay}>
             <Box style={content}>
-              <Text>date:{date}</Text>
+              <Text
+                textAlign="center"
+                fontWeight="bold"
+                fontSize="2xl"
+                mb="4"
+              >
+                {date}
+              </Text>
               {owner ? (
                 isDone ? (
-                    <Flex>
-                      <Button onClick={()=>{onClickEdit()}}>日報編集へ</Button>
-                      <Button onClick={()=>{onClickDelete()}}>日報削除</Button>
-                    </Flex>
+                    <Box textAlign="center">
+                      <Button mb="4" size="lg" onClick={()=>{onClickEdit()}}>日報編集へ</Button>
+                      <br />
+                      <Button mb="4" size="lg" onClick={()=>{onClickDelete()}}>日報削除</Button>
+                    </Box>
                 ) : (
-                  <Button onClick={()=>{onClickCreate()}}>日報作成へ</Button>
+                  <Box textAlign="center">
+                    <Button mb="4" size="lg" onClick={()=>{onClickCreate()}}>日報作成へ</Button>
+                  </Box>
                 )
               ) : (
-                <Text>ゲストはレビューのみしかできません。日報作成したいのであればオーナーとしてログインしてください</Text>
+                <Text
+                  fontWeight="bold"
+                  mb="8"
+                  textAlign="center"
+                >
+                  ゲストはレビューのみしかできません。
+                  <br />
+                  日報作成したいのであればオーナーとしてログインしてください
+                </Text>
               )}
-              <Flex>
-                <Button onClick={()=>{onClickReview()}}>レビューへ</Button>
-                <Button onClick={closeModal}>close</Button>
-              </Flex>
+              <Box textAlign="center">
+                <Button mb="4" size="lg" onClick={()=>{onClickReview()}}>レビューへ</Button>
+                <br />
+                <Button size="lg" onClick={closeModal}>close</Button>
+              </Box>
             </Box>
           </Box>
         ) : (

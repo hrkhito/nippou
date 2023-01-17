@@ -92,23 +92,33 @@ const Date = (props:any) => {
       <Heading
         textAlign="center"
         mb="4"
-        bg="purple.400"
+        bg="purple.200"
         w="50%"
         mr="auto"
         ml="auto"
-        borderRadius="3xl"
+        borderRadius="xl"
         p="4"
       >
         日報管理アプリを始めましょう
       </Heading>
-      <Button mb="8" size="sm">
-        <Link href="/">topへ</Link>
-      </Button>
-      {owner ? (
-        <Button size="sm" mb="8" ml="4" onClick={onClickLogout}>ログアウト</Button>
-      ) : (
-        null
-      )}
+      <Box textAlign="center">
+        {owner ? (
+          <Button
+            size="sm"
+            mb="8"
+            onClick={onClickLogout}
+          >
+            ログアウト
+          </Button>
+        ) : (
+          <Button
+            mb="8"
+            size="sm"
+          >
+            <Link href="/">topへ</Link>
+          </Button>
+        )}
+      </Box>
       <Box mb="16">
         {modal ? (
           <Modal

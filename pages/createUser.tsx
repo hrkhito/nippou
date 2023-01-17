@@ -33,14 +33,6 @@ const CreateUser = () => {
 
     if (target.length>0) {
       alert("同じユーザー名か同じid、もしくは同じpasswordが既に存在しているため被らないようにしてください")
-      // ここまで警告しなくても良いかも
-      // if(target[0].userName===userName) {
-      //   alert("同じユーザー名が既に存在しているものです")
-      // } else if (target[0].userId===userId) {
-      //   alert("同じidが既に存在しているものです")
-      // } else if (target[0].userPassword===userPassword) {
-      //   alert("同じpasswordが既に存在しているものです")
-      // }
     } else {
       try {
         const docRef=collection(firestore,"user")
