@@ -9,7 +9,7 @@ import { useRecoilState } from "recoil"
 import { groupId } from '../../../states/groupId';
 import { accountId } from '../../../states/accountId';
 import { isOwner } from '../../../states/isOwner';
-import { Button, Input, Text, Box, Flex, Heading } from '@chakra-ui/react';
+import { Button, Text, Box, Flex, Heading, Textarea } from '@chakra-ui/react';
 
 const Review = () => {
 
@@ -154,8 +154,9 @@ const Review = () => {
         borderRadius="3xl"
         p="8"
         mr="24"
-        ml="24"
+        ml="16"
         overflowY="auto"
+        w="40%"
       >
         <Text fontWeight="bold" mb="4">
           <Link href="#submit">チャットを送信する</Link>
@@ -170,7 +171,7 @@ const Review = () => {
                   bg={c.isowner ? "green.400" : "gray.400"}
                   borderRadius="3xl"
                   p="2"
-                  w="20%"
+                  w="40%"
                   wordBreak="break-word"
                 >
                   {c.message}
@@ -184,9 +185,9 @@ const Review = () => {
           bg="white"
           borderRadius="3xl"
         >
-          <Flex id="submit" mb="8">
-            <Input mr="2" value={message} onChange={(e)=> setMessage(e.target.value)} />
-            <Button bg="purple.400" color="white" onClick={onClickChat}>送信</Button>
+          <Flex id="submit" mb="8" alignItems="center">
+            <Textarea mr="2" value={message} onChange={(e)=> setMessage(e.target.value)} />
+            <Button p="8" bg="purple.400" color="white" onClick={onClickChat}>送信</Button>
           </Flex>
           <Text fontWeight="bold">
             <Link href="#top">上に戻る</Link>
