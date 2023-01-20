@@ -15,9 +15,9 @@ const Edit = () => {
 
   // state管理
   const [nippou,setNippou]:any=useState({});
-  const [textSurveillance,setTextSurveillance]=useState(false);
-  const [goodSurveillance,setGoodSurveillance]=useState(false);
-  const [badSurveillance,setBadSurveillance]=useState(false);
+  const [textSurveillance,setTextSurveillance]=useState<boolean>(false);
+  const [goodSurveillance,setGoodSurveillance]=useState<boolean>(false);
+  const [badSurveillance,setBadSurveillance]=useState<boolean>(false);
 
   // ref管理
   const gyomuText=useRef(null);
@@ -29,8 +29,8 @@ const Edit = () => {
   const nippouId:any=router.query.nippouId;
 
   // recoil関係
-  const [gid,setGid]:any=useRecoilState(groupId);
-  const [aid,setAid]:any=useRecoilState(accountId);
+  const [gid,setGid]=useRecoilState<string>(groupId);
+  const [aid,setAid]=useRecoilState<string>(accountId);
 
   // マウント時に編集したい日報をセット
   useEffect(()=>{
@@ -38,7 +38,7 @@ const Edit = () => {
     const data=async()=>{
       try {
         const docRef = doc(firestore, "user", aid, "certification",gid,"nippou", nippouId);
-        const docSnap:any = await getDoc(docRef);
+        const docSnap = await getDoc(docRef);
         const data=docSnap.data();
         setNippou(data);
       } catch(e) {
@@ -60,7 +60,7 @@ const Edit = () => {
   }
 
   // 空のままで更新できないようにする
-  const onChangeGyomu=(e:any)=>{
+  const onChangeGyomu=(e:React.ChangeEvent<HTMLTextAreaElement>)=>{
     setNippou({...nippou,gyomu:e.target.value});
     if (gyomuText.current.value==="") {
       setGoodSurveillance(true);
@@ -71,7 +71,7 @@ const Edit = () => {
     }
   }
 
-  const onChangeGood=(e:any)=>{
+  const onChangeGood=(e:React.ChangeEvent<HTMLTextAreaElement>)=>{
     setNippou({...nippou,good:e.target.value});
     if (goodText.current.value==="") {
       setTextSurveillance(true);
@@ -82,7 +82,7 @@ const Edit = () => {
     }
   }
 
-  const onChangeBad=(e:any)=>{
+  const onChangeBad=(e:React.ChangeEvent<HTMLTextAreaElement>)=>{
     setNippou({...nippou,bad:e.target.value});
     if (badText.current.value==="") {
       setTextSurveillance(true);

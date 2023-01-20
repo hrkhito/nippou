@@ -10,6 +10,7 @@ import { groupId } from '../../../states/groupId';
 import { accountId } from '../../../states/accountId';
 import { isOwner } from '../../../states/isOwner';
 import { Button, Text, Box, Flex, Heading, Textarea } from '@chakra-ui/react';
+import { chat } from '../../../types/chat';
 
 const Review = () => {
 
@@ -22,14 +23,13 @@ const Review = () => {
 
   // state管理
   const [nippou,setNippou]:any=useState({});
-  const [message,setMessage]=useState("");
-  const [targetChat,setTargetChat]=useState([]);
-  const [targetUserName,setTargetUserName]=useState("");
+  const [message,setMessage]=useState<string>("");
+  const [targetChat,setTargetChat]=useState<Array<chat>>([]);
 
   // recoil
-  const [gid,setGid]:any=useRecoilState(groupId);
-  const [aid,setAid]:any=useRecoilState(accountId);
-  const [isowner,setIsowner]:any=useRecoilState(isOwner);
+  const [gid,setGid]=useRecoilState<string>(groupId);
+  const [aid,setAid]=useRecoilState<string>(accountId);
+  const [isowner,setIsowner]=useRecoilState<boolean>(isOwner);
 
   // データ取得
   const date=router.query.date;
@@ -41,7 +41,7 @@ const Review = () => {
     const data=async()=>{
       try {
         const docRef = doc(firestore,"user",aid,"certification",gid,"nippou",nippouId)
-        const docSnap:any = await getDoc(docRef);
+        const docSnap = await getDoc(docRef);
         const data=docSnap.data();
         setNippou(data);
       } catch(e) {
@@ -50,24 +50,14 @@ const Review = () => {
     }
     data();
 
-    const target=chat.filter((c)=>{
+    const target:Array<chat>=chat.filter((c:chat)=>{
       return (
         c.date===date
       )
     })
     setTargetChat(target);
 
-    const targetUser=loginUser.filter((lg)=>{
-      return (
-        lg.id===aid
-      )
-    })
-    targetUser.map((tu)=>{
-      return (
-        setTargetUserName(tu.userName)
-      )
-    })
-  },[aid,nippouId,chat,loginUser,date,gid,setTargetUserName])
+  },[aid,nippouId,chat,loginUser,date,gid])
 
   // チャット送信時
   const onClickChat= async ()=>{
@@ -161,7 +151,7 @@ const Review = () => {
         <Text fontWeight="bold" mb="4">
           <Link href="#submit">チャットを送信する</Link>
         </Text>
-        {targetChat.map((c:any)=>{
+        {targetChat.map((c)=>{
           return (
             <Box w="100%" mb="4" key={c.id}>
               <Flex

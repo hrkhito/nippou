@@ -1,7 +1,5 @@
-export type nippou={
-  gyomu?: string,
-  good?: string,
-  bad?: string,
+export type callender={
+  title?: string,
   date?: string,
   dataId?: string,
   password?: string,

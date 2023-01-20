@@ -7,6 +7,7 @@ import { useRecoilState } from "recoil"
 import { accountId } from '../states/accountId';
 import { UseFireBaseLogin } from '../hooks/UseFirebaseLogin';
 import { Box, Input, Button, Text } from '@chakra-ui/react';
+import { certification } from '../types/certification';
 
 const CreateNippou = () => {
 
@@ -16,17 +17,17 @@ const CreateNippou = () => {
   const { login }=UseFireBaseLogin("user","certification");
 
   // recoil
-  const [aid,setAid]=useRecoilState(accountId)
+  const [aid,setAid]=useRecoilState<string>(accountId)
 
   // state管理
-  const [dataId,setDataId]=useState("");
-  const [password,setPassword]=useState("");
-  const [isAdminDataId,setIsAdminDataId]=useState(false);
-  const [isAdminPassword,setIsAdminPassword]=useState(false);
+  const [dataId,setDataId]=useState<string>("");
+  const [password,setPassword]=useState<string>("");
+  const [isAdminDataId,setIsAdminDataId]=useState<boolean>(false);
+  const [isAdminPassword,setIsAdminPassword]=useState<boolean>(false);
 
   // 作成時
   const onClickCreate= async ()=>{
-    const target=login.filter((l)=>{
+    const target:Array<certification>=login.filter((l:certification)=>{
       return (
         l.dataId===dataId || l.password===password
       )
@@ -49,7 +50,7 @@ const CreateNippou = () => {
   }
 
   // 入力時に文字数が足らないと警告する
-  const onChangeUserName=(e:any)=>{
+  const onChangeUserName=(e:React.ChangeEvent<HTMLInputElement>)=>{
     setDataId(e.target.value)
     if(e.target.value.length<5) {
       setIsAdminDataId(false);
@@ -57,7 +58,7 @@ const CreateNippou = () => {
       setIsAdminDataId(true);
     }
   }
-  const onChangeUserId=(e:any)=>{
+  const onChangeUserId=(e:React.ChangeEvent<HTMLInputElement>)=>{
     setPassword(e.target.value)
     if(e.target.value.length<5) {
       setIsAdminPassword(false);

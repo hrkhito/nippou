@@ -6,18 +6,29 @@ import { deleteDoc, doc } from 'firebase/firestore';
 import firestore from '../firebase';
 import { accountId } from '../states/accountId';
 import { groupId } from '../states/groupId';
-import { Box, Button, Flex, Text } from '@chakra-ui/react';
+import { Box, Button, Text } from '@chakra-ui/react';
 
-const Modal = (props:any) => {
+type modal ={
+  modal : boolean,
+  closeModal : any,
+  date : string,
+  isDone : boolean,
+  nippouId: string,
+  dataId : string,
+  password : string,
+  callenderId : string,
+};
+
+const Modal = (props:modal) => {
 
   const {modal,closeModal,date,isDone,nippouId,dataId,password,callenderId}=props;
   
   const router = useRouter();
 
   // recoil関係
-  const [owner,setOwner]:any=useRecoilState(isOwner);
-  const [aid,setAid]:any=useRecoilState(accountId);
-  const [gid,setGid]:any=useRecoilState(groupId);
+  const [owner,setOwner]=useRecoilState<boolean>(isOwner);
+  const [aid,setAid]=useRecoilState<string>(accountId);
+  const [gid,setGid]=useRecoilState<string>(groupId);
 
   // 日報作成時
   const onClickCreate=()=>{
@@ -57,7 +68,7 @@ const Modal = (props:any) => {
   }
 
   // スタイル
-  const overlay:any={
+  const overlay: { [key: string]: string | number }={
     /* 画面全体を覆う設定 */
     position:"fixed",
     top:0,

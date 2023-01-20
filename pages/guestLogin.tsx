@@ -5,6 +5,7 @@ import { accountId } from '../states/accountId';
 import { useRouter } from "next/router";
 import Link from 'next/link';
 import { Box, Button, Text } from '@chakra-ui/react';
+import { user } from '../types/user';
 
 const GuestLogin = () => {
 
@@ -14,10 +15,10 @@ const GuestLogin = () => {
   const { loginUser }=UseFireBaseLoginUser("user");
 
   // recoil関係
-  const [aid,setAid]:any=useRecoilState(accountId);
+  const [aid,setAid]=useRecoilState<string>(accountId);
 
   // ユーザー選択時
-  const onClickSelectUser=(id:any)=>{
+  const onClickSelectUser=(id:string)=>{
     setAid(id);
     router.push({
       pathname:"/afterGuestSelectUser/"
@@ -35,7 +36,7 @@ const GuestLogin = () => {
       <Text fontWeight="bold" mb="8">
         閲覧する日報を選択してください
       </Text>
-      {loginUser.map((lu:any)=>{
+      {loginUser.map((lu:user)=>{
         return (
           <Box 
             key={lu.id} 

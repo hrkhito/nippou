@@ -6,32 +6,33 @@ import { groupId } from '../states/groupId';
 import { useRouter } from "next/router";
 import { isOwner } from '../states/isOwner';
 import { Box, Button, Heading, Input, Text } from '@chakra-ui/react';
+import { certification } from '../types/certification';
 
 const AfterGuestSelectUser = () => {
 
   const router = useRouter();
 
   // 各ドキュメント
-  const { login }:any=UseFireBaseLogin("user","certification");
+  const { login }=UseFireBaseLogin("user","certification");
 
   // recoil関係
-  const [gid,setGid]:any=useRecoilState(groupId);
-  const [owner,setOwner]:any=useRecoilState(isOwner);
+  const [gid,setGid]=useRecoilState<string>(groupId);
+  const [owner,setOwner]=useRecoilState<boolean>(isOwner);
 
   // state管理
-  const [textId,setTextId]=useState("");
-  const [textPassword,setTextPassword]=useState("");
+  const [textId,setTextId]=useState<string>("");
+  const [textPassword,setTextPassword]=useState<string>("");
 
   // ログイン時
   const onClickLogin=()=>{
 
-    const target=login.filter((l:any)=>{
+    const target:Array<certification>=login.filter((l:certification)=>{
       return (
         l.dataId===textId && l.password===textPassword
       )
     })
 
-    target.map((t:any)=>{
+    target.map((t:certification)=>{
       return (
         setGid(t.id)
       )

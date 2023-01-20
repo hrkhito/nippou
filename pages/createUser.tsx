@@ -5,6 +5,7 @@ import firestore from '../firebase';
 import { useRouter } from "next/router";
 import { UseFireBaseLoginUser } from '../hooks/UseFirebaseUserLogin';
 import { Box, Button, Input, Text } from '@chakra-ui/react';
+import { user } from '../types/user';
 
 const CreateUser = () => {
 
@@ -14,18 +15,18 @@ const CreateUser = () => {
   const { loginUser }=UseFireBaseLoginUser("user");
 
   // state管理
-  const [userName,setUserName]=useState("");
-  const [userId,setUserId]=useState("");
-  const [userPassword,setUserPassword]=useState("");
-  const [isAdminUserName,setIsAdminUserName]=useState(false);
-  const [isAdminUserId,setIsAdminUserId]=useState(false);
-  const [isAdminUserPassword,setIsAdminUserPassword]=useState(false);
+  const [userName,setUserName]=useState<string>("");
+  const [userId,setUserId]=useState<string>("");
+  const [userPassword,setUserPassword]=useState<string>("");
+  const [isAdminUserName,setIsAdminUserName]=useState<boolean>(false);
+  const [isAdminUserId,setIsAdminUserId]=useState<boolean>(false);
+  const [isAdminUserPassword,setIsAdminUserPassword]=useState<boolean>(false);
 
   // 新規作成時
   const onClickCreateUser= async ()=>{
 
     // ユーザー名とid,passwordが被らないようにする
-    const target=loginUser.filter((lu:any)=>{
+    const target:Array<user>=loginUser.filter((lu:user)=>{
       return (
         lu.userName===userName || lu.userId===userId || lu.userPassword===userPassword
       )
@@ -50,7 +51,7 @@ const CreateUser = () => {
   }
 
   // 入力時に文字数が足らないと警告する
-  const onChangeUserName=(e:any)=>{
+  const onChangeUserName=(e:React.ChangeEvent<HTMLInputElement>)=>{
     setUserName(e.target.value)
     if(e.target.value.length<5) {
       setIsAdminUserName(false);
@@ -58,7 +59,7 @@ const CreateUser = () => {
       setIsAdminUserName(true);
     }
   }
-  const onChangeUserId=(e:any)=>{
+  const onChangeUserId=(e:React.ChangeEvent<HTMLInputElement>)=>{
     setUserId(e.target.value)
     if(e.target.value.length<5) {
       setIsAdminUserId(false);
@@ -66,7 +67,7 @@ const CreateUser = () => {
       setIsAdminUserId(true);
     }
   }
-  const onChangeUserPassword=(e:any)=>{
+  const onChangeUserPassword=(e:React.ChangeEvent<HTMLInputElement>)=>{
     setUserPassword(e.target.value)
     if(e.target.value.length<5) {
       setIsAdminUserPassword(false);

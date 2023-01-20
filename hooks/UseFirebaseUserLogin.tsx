@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react'
 import { collection, onSnapshot } from "firebase/firestore"
 import firestore from '../firebase'
+import { user } from '../types/user'
 
-export const UseFireBaseLoginUser = (data:any) => {
+export const UseFireBaseLoginUser = (data:string) => {
 
-  const [loginUser, setLoginUser] = useState([])
+  const [loginUser, setLoginUser] = useState<Array<user>>([])
 
   useEffect(()=>{
     const docRef = collection(firestore, data)
 
     const unsub = onSnapshot(docRef, snapshot => {
-      let results:any = []
+      let results:Array<user> = [];
       snapshot.docs.forEach(doc => {
         results.push({ ...doc.data(), id: doc.id })
       })

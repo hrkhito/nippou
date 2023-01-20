@@ -5,21 +5,22 @@ import { useRecoilState } from "recoil"
 import { accountId } from '../states/accountId';
 import { useRouter } from "next/router";
 import { Box, Button, Input, Text, Heading } from '@chakra-ui/react';
+import { user } from '../types/user';
 
 const LoginUser = () => {
 
   const router = useRouter();
 
   // 各ドキュメント
-  const { loginUser }:any=UseFireBaseLoginUser("user");
+  const { loginUser }=UseFireBaseLoginUser("user");
 
   // recoil関係
-  const [aid,setAid]=useRecoilState(accountId)
+  const [aid,setAid]=useRecoilState<string>(accountId)
 
   // state管理
-  const [userName,setUserName]=useState("");
-  const [userId,setUserId]=useState("");
-  const [userPassword,setUserPassword]=useState("");
+  const [userName,setUserName]=useState<string>("");
+  const [userId,setUserId]=useState<string>("");
+  const [userPassword,setUserPassword]=useState<string>("");
 
   // ログイン時
   const onClickLoginUser=()=>{
@@ -27,13 +28,13 @@ const LoginUser = () => {
     if(loginUser===undefined) return
   
     // 該当データの取得
-    const target:any= loginUser.filter((t)=>{
+    const target:Array<user>= loginUser.filter((t:user)=>{
       return (
         t.userName===userName && t.userId===userId && t.userPassword===userPassword
       )
     })
 
-    target.map((t:any)=>{
+    target.map((t:user)=>{
       return (
         setAid(t.id)
       )

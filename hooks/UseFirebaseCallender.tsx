@@ -4,17 +4,17 @@ import firestore from '../firebase'
 import { useRecoilState } from "recoil"
 import { groupId } from '../states/groupId'
 import { accountId } from '../states/accountId'
+import { callender } from '../types/callender'
 
-export const UseFireBaseCallender = (grandparents:any,parents:any,data:any) => {
-  const [documents, setDocuments] = useState([]);
-  const [gid,setGid]:any=useRecoilState(groupId);
-  const [aid,setAid]:any=useRecoilState(accountId)
+export const UseFireBaseCallender = (grandparents:string,parents:string,data:string) => {
+  const [documents, setDocuments] = useState<Array<callender>>([]);
+  const [gid,setGid]=useRecoilState<string>(groupId);
+  const [aid,setAid]=useRecoilState<string>(accountId)
 
   useEffect(()=>{
-
-    const docRef:any = collection(firestore,grandparents,aid,parents,gid,data)
+    const docRef = collection(firestore,grandparents,aid,parents,gid,data)
     const unsub = onSnapshot(docRef, snapshot => {
-      let results:any = []
+      let results:Array<callender> = []
       snapshot.docs.forEach(doc => {
         results.push({ ...doc.data(), id: doc.id })
       })

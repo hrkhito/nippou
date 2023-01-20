@@ -6,7 +6,7 @@ const { persistAtom } = recoilPersist({
   storage: typeof window === "undefined" ? undefined : sessionStorage
 });
 
-export const accountId=atom<any>({
+export const accountId=atom<string>({
   key: "accountId",
   default: "",
   effects_UNSTABLE: [persistAtom]

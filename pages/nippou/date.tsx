@@ -11,28 +11,30 @@ import { useRouter } from "next/router";
 import { useRecoilState } from 'recoil';
 import { isOwner } from '../../states/isOwner';
 import { Box, Button, Heading } from '@chakra-ui/react';
+import { callender } from '../../types/callender';
+import { nippou } from '../../types/nippou';
 
-const Date = (props:any) => {
+const Date = () => {
 
   const router=useRouter();
 
   // データ取得
-  const textId=router.query.textId;
-  const textPassword=router.query.textPassword;
+  const textId:any=router.query.textId;
+  const textPassword:any=router.query.textPassword;
 
   // recoil関係
-  const [owner,setOwner]:any=useRecoilState(isOwner);
+  const [owner,setOwner]=useRecoilState<boolean>(isOwner);
 
   // モーダル関係
-  const [modal, setModal] = useState(false);
-  const [date,setDate]=useState("");
-  const [isDone,setIsDone]=useState(false);
-  const [nippouId,setNippouId]=useState("");
-  const [callenderId,setCallenderId]=useState("");
+  const [modal, setModal] = useState<boolean>(false);
+  const [date,setDate]=useState<string>("");
+  const [isDone,setIsDone]=useState<boolean>(false);
+  const [nippouId,setNippouId]=useState<string>("");
+  const [callenderId,setCallenderId]=useState<string>("");
   
   // 各ドキュメント
-  const { documents }:any = UseFireBaseCallender("user","certification","callender");
-  const { nippou }:any=UseFireBaseNippou("user","certification","nippou");
+  const { documents } = UseFireBaseCallender("user","certification","callender");
+  const { nippou }=UseFireBaseNippou("user","certification","nippou");
 
   // モーダルのクローズボタン
   const closeModal = () => {
@@ -45,13 +47,13 @@ const Date = (props:any) => {
     setModal(true);
     setDate(arg.dateStr);
 
-    const filter= await documents.filter((document:any)=>{
+    const filter:Array<callender>= documents.filter((document:callender)=>{
       return (
         document.date===arg.dateStr
       )
     })
 
-    filter.map((f:any)=>{
+    filter.map((f:callender)=>{
       return (
         setCallenderId(f.id)
       )
@@ -63,13 +65,13 @@ const Date = (props:any) => {
       setIsDone(false)
     }
 
-    const targetNippou= await nippou.filter((part:any)=>{
+    const targetNippou:Array<nippou>= nippou.filter((part:nippou)=>{
       return (
         part.date===arg.dateStr
       )
     })
 
-    targetNippou.map((target:any)=>{
+    targetNippou.map((target:nippou)=>{
       return (
         setNippouId(target.id)
       )
@@ -140,7 +142,7 @@ const Date = (props:any) => {
             events={documents}
             dateClick={(arg)=>{handleDateClick(arg)}}
             selectable={true}
-            select={props.selectDateByDragAndDrop}
+            // select={props.selectDateByDragAndDrop}
           />
         )}
       </Box>

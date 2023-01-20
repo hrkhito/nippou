@@ -12,13 +12,13 @@ const Form = () => {
 
   const router = useRouter();
 
-  const [gid,setGid]:any=useRecoilState(groupId);
-  const [aid,setAid]:any=useRecoilState(accountId);
+  const [gid,setGid]=useRecoilState<string>(groupId);
+  const [aid,setAid]=useRecoilState<string>(accountId);
 
   // 業務内容、good news、bad newsの値管理
-  const [gyomu,setGyomu]=useState("");
-  const [good,setGood]=useState("");
-  const [bad,setBad]=useState("");
+  const [gyomu,setGyomu]=useState<string>("");
+  const [good,setGood]=useState<string>("");
+  const [bad,setBad]=useState<string>("");
 
   // データ取得
   const date=router.query.date;
@@ -26,7 +26,7 @@ const Form = () => {
   const password=router.query.password;
 
   // 提出ボタンを押した時
-  const onClickSubmit=async ()=>{
+  const onClickSubmit= async ()=>{
 
     try {
       const docRef=collection(firestore,"user",aid,"certification",gid,"callender")

@@ -6,6 +6,7 @@ import { useRecoilState } from "recoil"
 import { groupId } from '../states/groupId';
 import { isOwner } from '../states/isOwner';
 import { Box, Heading, Input, Text, Button } from '@chakra-ui/react';
+import { certification } from '../types/certification';
 
 const Login = () => {
 
@@ -15,25 +16,25 @@ const Login = () => {
   const { login }=UseFireBaseLogin("user","certification");
 
   // recoil関係
-  const [gid,setGid]:any=useRecoilState(groupId);
-  const [owner,setOwner]:any=useRecoilState(isOwner);
+  const [gid,setGid]=useRecoilState<string>(groupId);
+  const [owner,setOwner]=useRecoilState<boolean>(isOwner);
 
   // state管理
-  const [textId,setTextId]=useState("");
-  const [textPassword,setTextPassword]=useState("");
+  const [textId,setTextId]=useState<string>("");
+  const [textPassword,setTextPassword]=useState<string>("");
 
   // ログイン時
   const onClickLogin= async ()=>{
     if(login===undefined) return
     
     // 該当データの取得
-    const target:any= login.filter((t)=>{
+    const target:Array<certification>= login.filter((t)=>{
       return (
         t.dataId===textId && t.password===textPassword
       )
     })
 
-    target.map((t:any)=>{
+    target.map((t:certification)=>{
       return (
         setGid(t.id)
       )
