@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import allLocales from '@fullcalendar/core/locales-all';
-import interactionPlugin from "@fullcalendar/interaction";
+import interactionPlugin, { DateClickArg } from "@fullcalendar/interaction";
 import { UseFireBaseCallender } from '../../hooks/UseFirebaseCallender';
 import Modal from '../../components/Modal';
 import { UseFireBaseNippou } from '../../hooks/UseFirebaseNippou';
@@ -19,8 +19,8 @@ const Date = () => {
   const router=useRouter();
 
   // データ取得
-  const textId:any=router.query.textId;
-  const textPassword:any=router.query.textPassword;
+  const textId=router.query.textId as string;
+  const textPassword=router.query.textPassword as string;
 
   // recoil関係
   const [owner,setOwner]=useRecoilState<boolean>(isOwner);
@@ -42,7 +42,7 @@ const Date = () => {
   }
 
   // 日付選択時の処理
-  const handleDateClick = async (arg:any)=>{
+  const handleDateClick = async (arg:DateClickArg)=>{
 
     setModal(true);
     setDate(arg.dateStr);
@@ -142,7 +142,6 @@ const Date = () => {
             events={documents}
             dateClick={(arg)=>{handleDateClick(arg)}}
             selectable={true}
-            // select={props.selectDateByDragAndDrop}
           />
         )}
       </Box>

@@ -17,7 +17,7 @@
     "@emotion/styled": "^11.10.5",
     "@fullcalendar/core": "^6.0.2",
     "@fullcalendar/daygrid": "^6.0.2",
-    "@fullcalendar/interaction": "^6.0.2",
+    "@fullcalendar/interaction": "^6.0.3",
     "@fullcalendar/react": "^6.0.2",
     "firebase": "^9.15.0",
     "framer-motion": "^8.0.2",

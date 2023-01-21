@@ -11,6 +11,7 @@ import { accountId } from '../../../states/accountId';
 import { isOwner } from '../../../states/isOwner';
 import { Button, Text, Box, Flex, Heading, Textarea } from '@chakra-ui/react';
 import { chat } from '../../../types/chat';
+import { pageNippou } from '../../../types/pageNippou';
 
 const Review = () => {
 
@@ -22,7 +23,7 @@ const Review = () => {
   const router=useRouter();
 
   // state管理
-  const [nippou,setNippou]:any=useState({});
+  const [nippou,setNippou]=useState<pageNippou>({});
   const [message,setMessage]=useState<string>("");
   const [targetChat,setTargetChat]=useState<Array<chat>>([]);
 
@@ -33,7 +34,7 @@ const Review = () => {
 
   // データ取得
   const date=router.query.date;
-  const nippouId:any=router.query.nippouId;
+  const nippouId=router.query.nippouId as string;
 
   // マウント時に該当の日報を取得し、ユーザー名も取得
   useEffect(()=>{

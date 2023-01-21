@@ -10,7 +10,7 @@ import { Box, Button, Text } from '@chakra-ui/react';
 
 type modal ={
   modal : boolean,
-  closeModal : any,
+  closeModal : ()=> void,
   date : string,
   isDone : boolean,
   nippouId: string,

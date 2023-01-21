@@ -7,6 +7,7 @@ import { useRecoilState } from "recoil"
 import { groupId } from '../../../states/groupId';
 import { accountId } from '../../../states/accountId';
 import { Box, Button, Heading, Text, Textarea } from '@chakra-ui/react';
+import { pageNippou } from '../../../types/pageNippou';
 
 const Edit = () => {
 
@@ -14,7 +15,7 @@ const Edit = () => {
   const router = useRouter();
 
   // state管理
-  const [nippou,setNippou]:any=useState({});
+  const [nippou,setNippou]=useState<pageNippou>({});
   const [textSurveillance,setTextSurveillance]=useState<boolean>(false);
   const [goodSurveillance,setGoodSurveillance]=useState<boolean>(false);
   const [badSurveillance,setBadSurveillance]=useState<boolean>(false);
@@ -26,7 +27,7 @@ const Edit = () => {
 
   // データ取得
   const date=router.query.date;
-  const nippouId:any=router.query.nippouId;
+  const nippouId=router.query.nippouId as string;
 
   // recoil関係
   const [gid,setGid]=useRecoilState<string>(groupId);
