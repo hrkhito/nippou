@@ -14,12 +14,12 @@ type modal ={
   date : string,
   isDone : boolean,
   nippouId: string,
-  dataId : string,
-  password : string,
+  dataId : string | string[],
+  password : string| string[],
   callenderId : string,
 };
 
-const Modal = (props:modal) => {
+const SelectMenuModal = (props:modal) => {
 
   const {modal,closeModal,date,isDone,nippouId,dataId,password,callenderId}=props;
   
@@ -143,4 +143,4 @@ const Modal = (props:modal) => {
   )
 }
 
-export default Modal
+export default SelectMenuModal

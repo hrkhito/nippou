@@ -3,7 +3,7 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 import firestore from '../firebase';
 import { useRouter } from "next/router";
-import { UseFireBaseLoginUser } from '../hooks/UseFirebaseUserLogin';
+import { UseFirebaseUserLogin } from '../hooks/UseFirebaseUserLogin';
 import { Box, Button, Input, Text } from '@chakra-ui/react';
 import { user } from '../types/user';
 
@@ -12,7 +12,7 @@ const CreateUser = () => {
   const router=useRouter();
 
   // 各ドキュメント
-  const { loginUser }=UseFireBaseLoginUser("user");
+  const { loginUser }=UseFirebaseUserLogin("user");
 
   // state管理
   const [userName,setUserName]=useState<string>("");

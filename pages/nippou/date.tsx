@@ -4,7 +4,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import allLocales from '@fullcalendar/core/locales-all';
 import interactionPlugin, { DateClickArg } from "@fullcalendar/interaction";
 import { UseFireBaseCallender } from '../../hooks/UseFirebaseCallender';
-import Modal from '../../components/Modal';
+
 import { UseFireBaseNippou } from '../../hooks/UseFirebaseNippou';
 import Link from 'next/link';
 import { useRouter } from "next/router";
@@ -13,14 +13,15 @@ import { isOwner } from '../../states/isOwner';
 import { Box, Button, Heading } from '@chakra-ui/react';
 import { callender } from '../../types/callender';
 import { nippou } from '../../types/nippou';
+import SelectMenuModal from '../../components/selectMenuModal';
 
 const Date = () => {
 
   const router=useRouter();
 
   // データ取得
-  const textId=router.query.textId as string;
-  const textPassword=router.query.textPassword as string;
+  const textId=router.query.textId;
+  const textPassword=router.query.textPassword;
 
   // recoil関係
   const [owner,setOwner]=useRecoilState<boolean>(isOwner);
@@ -123,7 +124,7 @@ const Date = () => {
       </Box>
       <Box mb="16">
         {modal ? (
-          <Modal
+          <SelectMenuModal
             modal={modal}
             closeModal={closeModal}
             date={date}

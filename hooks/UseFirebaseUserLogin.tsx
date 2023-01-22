@@ -3,7 +3,7 @@ import { collection, onSnapshot } from "firebase/firestore"
 import firestore from '../firebase'
 import { user } from '../types/user'
 
-export const UseFireBaseLoginUser = (data:string) => {
+export const UseFirebaseUserLogin = (data:string) => {
 
   const [loginUser, setLoginUser] = useState<Array<user>>([])
 

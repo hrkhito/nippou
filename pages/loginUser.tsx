@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React, { useState } from 'react'
-import { UseFireBaseLoginUser } from '../hooks/UseFirebaseUserLogin';
+import { UseFirebaseUserLogin } from '../hooks/UseFirebaseUserLogin';
 import { useRecoilState } from "recoil"
 import { accountId } from '../states/accountId';
 import { useRouter } from "next/router";
@@ -12,7 +12,7 @@ const LoginUser = () => {
   const router = useRouter();
 
   // 各ドキュメント
-  const { loginUser }=UseFireBaseLoginUser("user");
+  const { loginUser }=UseFirebaseUserLogin("user");
 
   // recoil関係
   const [aid,setAid]=useRecoilState<string>(accountId)

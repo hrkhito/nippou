@@ -1,6 +1,6 @@
 import React from 'react'
 import { useRecoilState } from 'recoil';
-import { UseFireBaseLoginUser } from '../hooks/UseFirebaseUserLogin';
+import { UseFirebaseUserLogin } from '../hooks/UseFirebaseUserLogin';
 import { accountId } from '../states/accountId';
 import { useRouter } from "next/router";
 import Link from 'next/link';
@@ -12,7 +12,7 @@ const GuestLogin = () => {
   const router=useRouter();
 
   // 各ドキュメント
-  const { loginUser }=UseFireBaseLoginUser("user");
+  const { loginUser }=UseFirebaseUserLogin("user");
 
   // recoil関係
   const [aid,setAid]=useRecoilState<string>(accountId);
@@ -29,9 +29,9 @@ const GuestLogin = () => {
     <Box
       bg="purple.50"
       w="100%"
-      h='calc(100vh)'
-      textAlign="center"
+      minHeight='calc(100vh)'
       pt="16"
+      textAlign="center"
     >
       <Text fontWeight="bold" mb="8">
         閲覧する日報を選択してください

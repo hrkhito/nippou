@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { addDoc, collection, doc, getDoc, serverTimestamp } from 'firebase/firestore';
 import firestore from '../../../firebase';
 import { UseFireBaseChat } from '../../../hooks/UseFirebaseChat';
-import { UseFireBaseLoginUser } from "../../../hooks/UseFirebaseUserLogin"
+import { UseFirebaseUserLogin } from "../../../hooks/UseFirebaseUserLogin"
 import Link from 'next/link';
 import { useRecoilState } from "recoil"
 import { groupId } from '../../../states/groupId';
@@ -17,7 +17,7 @@ const Review = () => {
 
   // 各document
   const { chat }=UseFireBaseChat("user","certification","chats");
-  const { loginUser }=UseFireBaseLoginUser("user");
+  const { loginUser }=UseFirebaseUserLogin("user");
   
   // router
   const router=useRouter();
