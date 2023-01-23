@@ -15,10 +15,10 @@
 - また、メンターの方が自分との面談前にこのアプリを確認することで、前回の面談から今回の面談までにどの業務をこなしてきたのかや課題点を解決出来るようになったのかを確認できるようにするため。
 
 ## 利用方法(オーナー)
-https://user-images.githubusercontent.com/100411113/213949493-304bd2da-4b4b-4892-80a9-732980ce577f.mp4
+https://user-images.githubusercontent.com/100411113/213950732-8796a32c-4ead-40cf-9f35-c80830406e2b.mp4
 
 ## 利用方法(ゲスト)
-![F71D1C03-F572-4988-BBAA-55AFE7DF1DAE_1_102_o](https://user-images.githubusercontent.com/100411113/213919540-257eec1a-c2dd-4dad-ba23-66e5ca30ca90.jpeg)
+https://user-images.githubusercontent.com/100411113/213949493-304bd2da-4b4b-4892-80a9-732980ce577f.mp4
 
 ## 機能
 - 認証（サインアップ/サインイン/ログアウト）
